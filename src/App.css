@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
+body {
+  @apply bg-gray-700;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app {
+  @apply bg-gray-800;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.header {
+  @apply bg-gray-800;
+  @apply w-full h-full py-2;
+  @apply sticky top-0;
+}
+
+.row {
+  @apply flex flex-row;
+}
+
+.column {
+  @apply flex flex-col;
+}
+
+.wrap {
+  @apply flex flex-wrap;
+}
+
+.btn {
+}
+
+.btn:hover {
+  @apply cursor-pointer;
+}
+
+.btn-default {
+  @apply btn;
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-blue {
+  @apply btn-default;
+  @apply bg-blue-500 text-white;
+}
+
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+
+.btn-settings {
+  @apply btn;
+  @apply p-2;
+  @apply border-2 rounded-full;
+  @apply text-white;
+}
+
+.btn-profile {
+  @apply btn;
+  @apply p-2;
+  @apply border-2 rounded-full;
+  @apply text-white;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.6);
+  @apply fixed top-0 left-0 w-full h-full;
+  @apply z-50;
+}
+
+.settings {
+  @apply text-base text-black;
+  @apply row whitespace-nowrap overflow-hidden;
+  @apply pb-1 px-1 max-w-max;
+  @apply mx-5;
+  @apply rounded;
+  @apply bg-gray-200;
+}
+
+.dropdown-list {
+  @apply absolute z-40 column bg-gray-300;
+}
+
+.dropdown-list-item {
+  @apply text-sm;
+  @apply cursor-pointer;
+  @apply row h-6;
+}
+
+.search-select {
+  @apply text-base font-sans font-semibold tracking-normal text-gray-900;
+  @apply row max-w-max whitespace-nowrap overflow-hidden;
+  @apply px-2 py-1 mt-1;
+  @apply rounded-xl;
+  @apply bg-gray-100;
+  @apply border border-gray-700;
+}
+
+.search-dropdown-list {
+  @apply dropdown-list mt-7;
+  @apply max-h-72 max-w-xs truncate;
+}
+
+.search-dropdown-list-item {
+  @apply dropdown-list-item text-left border border-gray-400 pt-3;
+}
+
+.modal-main {
+  @apply fixed bg-gray-50 w-max h-auto top-1/2 left-1/2;
+  @apply transform -translate-x-1/2 -translate-y-1/2;
+  @apply text-black font-sans;
+  @apply rounded;
+  @apply p-3;
+
+  & fieldset {
+    @apply p-1;
+    @apply w-full;
+
+    & legend {
+      @apply w-1/6;
+      @apply font-bold text-lg text-right float-left px-5;
+    }
+
+    & > div {
+      @apply flex flex-wrap gap-2;
+      @apply min-w-min;
+    }
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.main {
+  @apply column;
+  @apply w-full h-full;
+  @apply bg-gray-700;
 }
 
-.App-link {
-  color: #61dafb;
+.tile {
+  background-image: url("images/tile.jpg");
+  @apply bg-no-repeat;
+  @apply w-20 h-20;
+  @apply text-center font-bold text-5xl pt-4;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tile-dropper {
+  background-image: url("images/metal-funnel.png");
+  @apply bg-no-repeat;
+  @apply w-80 h-72;
 }
