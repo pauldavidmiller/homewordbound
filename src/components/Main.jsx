@@ -3,41 +3,56 @@ import ImageWithHeader from "./ImageWithHeader";
 import { getFakeDailyParameterData } from "../data/fakedata";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 
-const Input = ({ name, control, register, index, disabled, className }) => {
+const Input = ({
+  name,
+  control,
+  onKeyDown,
+  register,
+  index,
+  disabled,
+  className,
+}) => {
   const value = useWatch({
     control,
     name,
   });
+
   return (
     <input
       {...register(`letterInputs.${index}.letter`)}
-      defaultValue={value}
       disabled={disabled}
       className={className}
       maxLength={1}
+      value={value?.toUpperCase() ?? ""}
+      onKeyDown={onKeyDown}
     />
   );
 };
 
 const Main = () => {
-  const [doAnimation, setDoAnimation] = React.useState(false);
   // TODO: replace with real parameter data
+  const [doAnimation, setDoAnimation] = React.useState(false);
+  const [isFocused, setIsFocused] = React.useState(false);
   const [dailyParameters, setDailyParameters] = React.useState(
     getFakeDailyParameterData()
   );
-  const { register, control, getValues, handleSubmit } = useForm({
-    defaultValues: {
-      letterInputs: dailyParameters?.letters?.map((x) => {
-        return {
-          letter: x,
-        };
-      }),
-    },
-  });
+
+  // Input Array
+  const { register, control, setValue, getValues, setFocus, handleSubmit } =
+    useForm({
+      defaultValues: {
+        letterInputs: dailyParameters?.letters?.map((x) => {
+          return {
+            letter: x,
+          };
+        }),
+      },
+    });
   const { fields, remove } = useFieldArray({
     control,
     name: "letterInputs",
   });
+
   const onSubmit = (data) => console.log("data", data);
 
   React.useEffect(() => {
@@ -46,7 +61,19 @@ const Main = () => {
     } else {
       setDoAnimation(false);
     }
-  }, [dailyParameters?.hasNotVisited]);
+
+    if (!isFocused) {
+      setFocus(
+        `letterInputs.${dailyParameters?.letters?.indexOf(null)}.letter`
+      );
+      setIsFocused(true);
+    }
+  }, [
+    dailyParameters?.hasNotVisited,
+    dailyParameters?.letters,
+    isFocused,
+    setFocus,
+  ]);
 
   return (
     <div className="main">
@@ -76,7 +103,7 @@ const Main = () => {
 
         <div className="column justify-center">
           {dailyParameters?.letters
-            ?.filter((letter) => letter !== "_")
+            ?.filter((letter) => letter !== null)
             ?.map((letter, index) => {
               return (
                 <div className="row justify-center my-1" key={index}>
@@ -90,10 +117,8 @@ const Main = () => {
             })}
         </div>
       </div>
-      <div className="row justify-center">
+      <form onSubmit={handleSubmit(onSubmit)} className="row justify-center">
         {fields.map((item, index) => {
-          // TODO: make this input text field and make it nullable if one of the default letters
-          console.log(item);
           return (
             <div className="px-1" key={item.id}>
               <Input
@@ -102,12 +127,53 @@ const Main = () => {
                 index={index}
                 name={`letterInputs.${index}.letter`}
                 className="tile pb-2 border border-black"
-                disabled={item.letter !== "_" ? true : false}
+                disabled={item.letter !== null ? true : false}
+                onKeyDown={(e) => {
+                  e.preventDefault();
+                  if (e.keyCode === 8) {
+                    // Delete
+                    const prevIndex = dailyParameters?.letters
+                      ?.slice(0, index)
+                      ?.lastIndexOf(null);
+                    if (
+                      (index + 1 === dailyParameters?.letters?.length ||
+                        prevIndex === -1) &&
+                      getValues(`letterInputs.${index}.letter`) !== null &&
+                      getValues(`letterInputs.${index}.letter`) !== ""
+                    ) {
+                      setValue(`letterInputs.${index}.letter`, null);
+                    } else {
+                      if (prevIndex > -1) {
+                        setValue(`letterInputs.${prevIndex}.letter`, null);
+                        setFocus(`letterInputs.${prevIndex}.letter`);
+                      }
+                    }
+                  } else if (
+                    // Alphabet Upper or Lower Case
+                    (e.keyCode >= 65 && e.keyCode <= 90) ||
+                    (e.keyCode >= 97 && e.keyCode <= 122)
+                  ) {
+                    setValue(
+                      `letterInputs.${index}.letter`,
+                      e.key.toUpperCase()
+                    );
+                    if (index + 1 < dailyParameters?.letters?.length) {
+                      const nextIndex = dailyParameters?.letters?.indexOf(
+                        null,
+                        index + 1
+                      );
+                      if (nextIndex > -1) {
+                        setFocus(`letterInputs.${nextIndex}.letter`);
+                      }
+                    }
+                  }
+                }}
               />
             </div>
           );
         })}
-      </div>
+        {/* <button type="submit" className="btn-blue" */}
+      </form>
     </div>
   );
 };

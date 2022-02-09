@@ -3,7 +3,7 @@ import { getCurrentDateTime } from "../bff/utilities";
 const fakeDailyParameterData = [
   {
     day: getCurrentDateTime(),
-    letters: ["A", "_", "_", "D", "_"],
+    letters: ["A", null, null, "D", null],
     allWords: ["alude", "abide", "abode"],
   },
 ];
