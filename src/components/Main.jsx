@@ -38,22 +38,46 @@ const Main = () => {
   );
 
   // Input Array
-  const { register, control, setValue, getValues, setFocus, handleSubmit } =
-    useForm({
-      defaultValues: {
-        letterInputs: dailyParameters?.letters?.map((x) => {
-          return {
-            letter: x,
-          };
-        }),
-      },
-    });
+  const {
+    register,
+    control,
+    setValue,
+    reset,
+    getValues,
+    setFocus,
+    handleSubmit,
+  } = useForm({
+    defaultValues: {
+      letterInputs: dailyParameters?.letters?.map((x) => {
+        return {
+          letter: x,
+        };
+      }),
+    },
+  });
   const { fields, remove } = useFieldArray({
     control,
     name: "letterInputs",
   });
 
-  const onSubmit = (data) => console.log("data", data);
+  const [focusPos, setFocusPos] = React.useState(
+    dailyParameters?.letters?.indexOf(null)
+  );
+
+  const setAllFocus = (index) => {
+    setFocus(`letterInputs.${index}.letter`);
+    setFocusPos(index);
+  };
+
+  const onSubmit = async (data) => {
+    // Check against database and add to list if valid
+    console.log("submitted");
+
+    const values = getValues()?.letterInputs?.map((x) => x.letter);
+
+    reset();
+    setAllFocus(dailyParameters?.letters?.indexOf(null));
+  };
 
   React.useEffect(() => {
     if (dailyParameters?.hasNotVisited) {
@@ -66,6 +90,7 @@ const Main = () => {
       setFocus(
         `letterInputs.${dailyParameters?.letters?.indexOf(null)}.letter`
       );
+      setFocusPos(dailyParameters?.letters?.indexOf(null));
       setIsFocused(true);
     }
   }, [
@@ -76,7 +101,12 @@ const Main = () => {
   ]);
 
   return (
-    <div className="main">
+    <div
+      className="main"
+      onClick={(e) => {
+        setAllFocus(focusPos);
+      }}
+    >
       {/* <div className="wrap justify-center">
         <button
           type="button"
@@ -145,7 +175,7 @@ const Main = () => {
                     } else {
                       if (prevIndex > -1) {
                         setValue(`letterInputs.${prevIndex}.letter`, null);
-                        setFocus(`letterInputs.${prevIndex}.letter`);
+                        setAllFocus(prevIndex);
                       }
                     }
                   } else if (
@@ -163,7 +193,7 @@ const Main = () => {
                         index + 1
                       );
                       if (nextIndex > -1) {
-                        setFocus(`letterInputs.${nextIndex}.letter`);
+                        setAllFocus(nextIndex);
                       }
                     }
                   }
@@ -172,7 +202,11 @@ const Main = () => {
             </div>
           );
         })}
-        {/* <button type="submit" className="btn-blue" */}
+        <div className="column justify-center mx-5">
+          <button type="submit" className="btn-blue h-10 w-30 justify-center">
+            Enter
+          </button>
+        </div>
       </form>
     </div>
   );
