@@ -1,33 +1,12 @@
+import React from "react";
+import { useCombobox } from "downshift";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
   faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCombobox } from "downshift";
-import React from "react";
-import { useVirtual } from "react-virtual";
 import classnames from "tailwindcss-classnames";
-
-const List = ({ items, isOpen, render }) => {
-  const parentRef = React.useRef();
-
-  const rowVirtualizer = useVirtual({
-    size: items.length,
-    parentRef,
-    estimateSize: React.useMemo((i) => items[i], [items]),
-  });
-
-  return (
-    <li ref={parentRef} hidden={!isOpen} className="overflow-auto">
-      <div
-        style={{ height: `${rowVirtualizer.totalSize}px` }}
-        className="relative"
-      >
-        {rowVirtualizer.virtualItems.map((virtualRow) => render(virtualRow))}
-      </div>
-    </li>
-  );
-};
+import List from "./List";
 
 const DropdownSelect = ({ items, selectedItem, handleSelectedItemChange }) => {
   const itemToString = (item) => (item ? item : "");

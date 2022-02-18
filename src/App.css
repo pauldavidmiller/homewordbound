@@ -126,6 +126,12 @@ body {
 }
 
 .main {
+  @apply row;
+  @apply w-full h-full;
+  @apply bg-gray-700;
+}
+
+.main-input {
   @apply column;
   @apply w-full h-full;
   @apply bg-gray-700;
