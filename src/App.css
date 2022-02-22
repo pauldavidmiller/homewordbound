@@ -12,6 +12,12 @@ body {
   @apply sticky top-0;
 }
 
+.container {
+  @apply bg-gray-800;
+  @apply p-5;
+  @apply rounded-lg;
+}
+
 .row {
   @apply flex flex-row;
 }
@@ -133,19 +139,33 @@ body {
 
 .main-input {
   @apply column;
+  @apply ml-5;
   @apply w-full h-full;
   @apply bg-gray-700;
+}
+
+.correct-words {
+  @apply container;
+  @apply column;
+  @apply w-60;
+  @apply mt-5;
 }
 
 .tile {
   background-image: url("images/tile.jpg");
   @apply bg-no-repeat;
   @apply w-20 h-20;
-  @apply text-center font-bold text-5xl pt-4;
+  @apply text-center font-bold text-5xl pt-4 text-black;
 }
 
 .tile-dropper {
   background-image: url("images/metal-funnel.png");
   @apply bg-no-repeat;
   @apply w-80 h-72;
+}
+
+.question-mark {
+  background-image: url("images/questionmark.png");
+  @apply bg-no-repeat;
+  @apply w-20 h-20;
 }

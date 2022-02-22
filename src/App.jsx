@@ -7,6 +7,7 @@ import { getDictionary } from "./data/main_dictionary_object.jsx";
 import "./App.css";
 
 const App = () => {
+  const [animateParameters, setAnimateParameters] = React.useState(false);
   const [profileClosed, setProfileClosed] = React.useState(true);
   // Dictionary is initialized here so that typing the letters is faster and doesn't rerender with Main
   const [dictionary, setDictionary] = React.useState(getDictionary());
@@ -21,7 +22,7 @@ const App = () => {
         This is the profile
       </Modal>
       <Header setProfileClosed={setProfileClosed} />
-      <Main dictionary={dictionary} />
+      <Main animateParameters={animateParameters} dictionary={dictionary} />
     </div>
   );
 };

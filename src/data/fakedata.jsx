@@ -18,7 +18,6 @@ const fakeUserData = [
     days: [
       {
         day: getCurrentDateTime(),
-        hasNotVisited: false,
         words: ["alude", "abide"],
         statistics: {
           worldPlacement: 66,

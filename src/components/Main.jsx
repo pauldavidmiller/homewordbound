@@ -1,8 +1,9 @@
 import React from "react";
-import ImageWithHeader from "./ImageWithHeader";
+import ParameterSelector from "./ParameterSelector";
 import { getFakeDailyParameterData } from "../data/fakedata";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import CorrectWords from "./CorrectWords";
+import CardFlip from "./CardFlip";
 import useInterval from "../hooks/useInterval";
 
 const Input = ({
@@ -31,22 +32,41 @@ const Input = ({
   );
 };
 
-const Main = ({ dictionary }) => {
+const Main = ({ animateParameters, dictionary }) => {
   // TODO: replace with real parameter data
-  const [doAnimation, setDoAnimation] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
   const [dailyParameters, setDailyParameters] = React.useState(
     getFakeDailyParameterData()
   );
+  const [wordLengthFlipped, setWordLengthFlipped] = React.useState(false);
+  const [numTilesFlipped, setNumTilesFlipped] = React.useState(false);
+  const [revealedParametersFlipped, setRevealedParametersFlipped] =
+    React.useState(false);
+  const [inputFlipped, setInputFlipped] = React.useState(false);
   const [correctWords, setCorrectWords] = React.useState([]);
   const [isInvalidWordText, setInvalidWordText] = React.useState("");
 
   // UseIntervals
   useInterval(() => {
+    if (isFocused) {
+      setWordLengthFlipped(true);
+    }
+    if (revealedParametersFlipped) {
+      setInputFlipped(true);
+    }
+  }, 1000);
+
+  useInterval(() => {
     if (isInvalidWordText !== "") {
       setInvalidWordText("");
     }
-  }, 3000);
+    if (wordLengthFlipped) {
+      setNumTilesFlipped(true);
+    }
+    if (numTilesFlipped) {
+      setRevealedParametersFlipped(true);
+    }
+  }, 2000);
 
   // Input Array
   const {
@@ -109,12 +129,6 @@ const Main = ({ dictionary }) => {
   };
 
   React.useEffect(() => {
-    if (dailyParameters?.hasNotVisited) {
-      setDoAnimation(true);
-    } else {
-      setDoAnimation(false);
-    }
-
     if (!isFocused) {
       setFocus(
         `letterInputs.${dailyParameters?.letters?.indexOf(null)}.letter`
@@ -122,12 +136,7 @@ const Main = ({ dictionary }) => {
       setFocusPos(dailyParameters?.letters?.indexOf(null));
       setIsFocused(true);
     }
-  }, [
-    dailyParameters?.hasNotVisited,
-    dailyParameters?.letters,
-    isFocused,
-    setFocus,
-  ]);
+  }, [dailyParameters?.letters, isFocused, setFocus]);
 
   return (
     <div className="main">
@@ -149,109 +158,166 @@ const Main = ({ dictionary }) => {
           Get Parameters
         </button>
       </div> */}
-        <div className="wrap justify-center my-5">
-          <ImageWithHeader
+        <div className="container row justify-center my-5">
+          <ParameterSelector
             title="Length of Word"
             imageClassName="tile-dropper"
-            className="m-5"
-          />
-          <ImageWithHeader
+            className="mt-5 ml-5 mr-8 mb-5"
+          >
+            <CardFlip
+              flipped={wordLengthFlipped}
+              frontChildren={<div className="question-mark" />}
+              backChildren={
+                <div className="tile">{dailyParameters?.letters?.length}</div>
+              }
+            />
+          </ParameterSelector>
+          <ParameterSelector
             title="Number of Tiles Given"
             imageClassName="tile-dropper"
-            className="m-5"
-          />
+            className="mt-5 ml-5 mr-8 mb-5"
+          >
+            <CardFlip
+              flipped={numTilesFlipped}
+              frontChildren={<div className="question-mark" />}
+              backChildren={
+                <div className="tile">
+                  {
+                    dailyParameters?.letters?.filter(
+                      (letter) => letter !== null
+                    )?.length
+                  }
+                </div>
+              }
+            />
+          </ParameterSelector>
 
-          <div className="column justify-center">
-            {dailyParameters?.letters
-              ?.filter((letter) => letter !== null)
-              ?.map((letter, index) => {
-                return (
-                  <div className="row justify-center my-1" key={index}>
-                    <div className="tile">{letter}</div>
-                    <span className="mx-3 text-white text-center text-xl py-7">
-                      in Position{" "}
-                      {+dailyParameters?.letters?.indexOf(letter) + +1}
-                    </span>
-                  </div>
-                );
-              })}
+          <div className="column justify-center w-60">
+            <CardFlip
+              flipped={revealedParametersFlipped}
+              frontChildren={<div className="question-mark" />}
+              backChildren={
+                <div className="column justify-center">
+                  {dailyParameters?.letters
+                    ?.filter((letter) => letter !== null)
+                    ?.map((letter, index) => {
+                      return (
+                        <div className="row justify-center my-1" key={index}>
+                          <div className="tile">{letter}</div>
+                          <div className="row">
+                            <div className="mx-3 text-center text-xl py-7">
+                              <span>in Position </span>
+                              <span>
+                                {+dailyParameters?.letters?.indexOf(letter) +
+                                  +1}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              }
+            />
           </div>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="row justify-center">
-          {fields.map((item, index) => {
-            return (
-              <div className="px-1" key={item.id}>
-                <Input
-                  register={register}
-                  control={control}
-                  index={index}
-                  name={`letterInputs.${index}.letter`}
-                  className="tile pb-2 border border-black"
-                  disabled={item.letter !== null ? true : false}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      // Don't prevent default
-                    } else {
-                      e.preventDefault();
-                      if (e.keyCode === 8) {
-                        // Delete
-                        const prevIndex = dailyParameters?.letters
-                          ?.slice(0, index)
-                          ?.lastIndexOf(null);
-                        if (
-                          (index + 1 === dailyParameters?.letters?.length ||
-                            prevIndex === -1) &&
-                          getValues(`letterInputs.${index}.letter`) !== null &&
-                          getValues(`letterInputs.${index}.letter`) !== ""
-                        ) {
-                          setValue(`letterInputs.${index}.letter`, null);
-                        } else {
-                          if (prevIndex > -1) {
-                            setValue(`letterInputs.${prevIndex}.letter`, null);
-                            setAllFocus(prevIndex);
+        <CardFlip
+          flipped={inputFlipped}
+          frontChildren={<div className="container row justify-center h-52" />}
+          backChildren={
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="container column justify-center h-52"
+            >
+              <div className="row justify-center">
+                {fields.map((item, index) => {
+                  return (
+                    <div className="px-1" key={item.id}>
+                      <Input
+                        register={register}
+                        control={control}
+                        index={index}
+                        name={`letterInputs.${index}.letter`}
+                        className="tile pb-2 border border-black"
+                        disabled={item.letter !== null ? true : false}
+                        onKeyDown={(e) => {
+                          if (e.keyCode === 13) {
+                            // Don't prevent default
+                          } else {
+                            e.preventDefault();
+                            if (e.keyCode === 8) {
+                              // Delete
+                              const prevIndex = dailyParameters?.letters
+                                ?.slice(0, index)
+                                ?.lastIndexOf(null);
+                              if (
+                                (index + 1 ===
+                                  dailyParameters?.letters?.length ||
+                                  prevIndex === -1) &&
+                                getValues(`letterInputs.${index}.letter`) !==
+                                  null &&
+                                getValues(`letterInputs.${index}.letter`) !== ""
+                              ) {
+                                setValue(`letterInputs.${index}.letter`, null);
+                              } else {
+                                if (prevIndex > -1) {
+                                  setValue(
+                                    `letterInputs.${prevIndex}.letter`,
+                                    null
+                                  );
+                                  setAllFocus(prevIndex);
+                                }
+                              }
+                            } else if (
+                              // Alphabet Upper or Lower Case
+                              (e.keyCode >= 65 && e.keyCode <= 90) ||
+                              (e.keyCode >= 97 && e.keyCode <= 122)
+                            ) {
+                              setValue(
+                                `letterInputs.${index}.letter`,
+                                e.key.toUpperCase()
+                              );
+                              if (
+                                index + 1 <
+                                dailyParameters?.letters?.length
+                              ) {
+                                const nextIndex =
+                                  dailyParameters?.letters?.indexOf(
+                                    null,
+                                    index + 1
+                                  );
+                                if (nextIndex > -1) {
+                                  setAllFocus(nextIndex);
+                                }
+                              }
+                            }
                           }
-                        }
-                      } else if (
-                        // Alphabet Upper or Lower Case
-                        (e.keyCode >= 65 && e.keyCode <= 90) ||
-                        (e.keyCode >= 97 && e.keyCode <= 122)
-                      ) {
-                        setValue(
-                          `letterInputs.${index}.letter`,
-                          e.key.toUpperCase()
-                        );
-                        if (index + 1 < dailyParameters?.letters?.length) {
-                          const nextIndex = dailyParameters?.letters?.indexOf(
-                            null,
-                            index + 1
-                          );
-                          if (nextIndex > -1) {
-                            setAllFocus(nextIndex);
-                          }
-                        }
-                      }
-                    }
-                  }}
-                />
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+                <div className="column justify-center mx-5">
+                  <button
+                    type="submit"
+                    className="btn-blue justify-center h-10 w-30"
+                  >
+                    Enter
+                  </button>
+                </div>
               </div>
-            );
-          })}
-          <div className="column justify-center mx-5">
-            <button type="submit" className="btn-blue h-10 w-30 justify-center">
-              Enter
-            </button>
-          </div>
-        </form>
-
-        <div className="row justify-center m-5 text-red-600 font-bold">
-          {isInvalidWordText}
-        </div>
+              <div className="row justify-center m-5 text-red-600 font-bold">
+                <span className="h-10">{isInvalidWordText}</span>
+              </div>
+            </form>
+          }
+        />
       </div>
       <CorrectWords
         correctWords={correctWords}
         isOpen={true}
-        className="w-40"
+        className="correct-words"
       />
     </div>
   );

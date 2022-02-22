@@ -21,7 +21,7 @@ const Header = ({ setProfileClosed }) => {
         </button>
       </div>
       <header className="text-center text-white font-bold text-2xl mt-1 w-1/3">
-        Word Game
+        Wordict
       </header>
       <div className="flex flex-row-reverse w-1/3">
         <button
