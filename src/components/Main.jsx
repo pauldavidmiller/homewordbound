@@ -5,6 +5,7 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import CorrectWords from "./CorrectWords";
 import CardFlip from "./CardFlip";
 import useInterval from "../hooks/useInterval";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Input = ({
   name,
@@ -34,16 +35,19 @@ const Input = ({
 
 const Main = ({ animateParameters, dictionary }) => {
   // TODO: replace with real parameter data
-  const [isFocused, setIsFocused] = React.useState(false);
-  const [dailyParameters, setDailyParameters] = React.useState(
+  const [dailyParameters, setDailyParameters] = useLocalStorage(
+    "dailyParameters",
     getFakeDailyParameterData()
   );
+  const [correctWords, setCorrectWords] = useLocalStorage("correctWords", []);
+  const [pctWordsFound, setPctWordsFound] = useLocalStorage("pctWordsFound", 0);
+
+  const [isFocused, setIsFocused] = React.useState(false);
   const [wordLengthFlipped, setWordLengthFlipped] = React.useState(false);
   const [numTilesFlipped, setNumTilesFlipped] = React.useState(false);
   const [revealedParametersFlipped, setRevealedParametersFlipped] =
     React.useState(false);
   const [inputFlipped, setInputFlipped] = React.useState(false);
-  const [correctWords, setCorrectWords] = React.useState([]);
   const [isInvalidWordText, setInvalidWordText] = React.useState("");
 
   // UseIntervals
@@ -51,22 +55,25 @@ const Main = ({ animateParameters, dictionary }) => {
     if (isFocused) {
       setWordLengthFlipped(true);
     }
-    if (revealedParametersFlipped) {
-      setInputFlipped(true);
-    }
   }, 1000);
 
   useInterval(() => {
-    if (isInvalidWordText !== "") {
-      setInvalidWordText("");
-    }
     if (wordLengthFlipped) {
       setNumTilesFlipped(true);
     }
     if (numTilesFlipped) {
       setRevealedParametersFlipped(true);
     }
+    if (revealedParametersFlipped) {
+      setInputFlipped(true);
+    }
   }, 2000);
+
+  useInterval(() => {
+    if (isInvalidWordText !== "") {
+      setInvalidWordText("");
+    }
+  }, 3000);
 
   // Input Array
   const {
@@ -111,17 +118,14 @@ const Main = ({ animateParameters, dictionary }) => {
 
     const wordLowerCase = word.toLowerCase();
 
-    if (dictionary[wordLowerCase] !== "yes") {
+    if (!dailyParameters?.allWords?.includes(wordLowerCase)) {
       setInvalidWordText("Invalid Word");
     } else if (correctWords.find((x) => x === wordLowerCase) !== undefined) {
       setInvalidWordText("Already found");
     } else {
-      // If in the dictionary and not already in the correctWords found array
+      // If in the given words and not already in the correctWords found array
       setInvalidWordText("");
       setCorrectWords((correctWords) => [...correctWords, wordLowerCase]);
-      ///
-      // TODO: Also post to database the updated correctWords
-      ///
     }
 
     reset();
@@ -136,7 +140,18 @@ const Main = ({ animateParameters, dictionary }) => {
       setFocusPos(dailyParameters?.letters?.indexOf(null));
       setIsFocused(true);
     }
-  }, [dailyParameters?.letters, isFocused, setFocus]);
+
+    if (correctWords?.length > 0) {
+      setPctWordsFound(correctWords.length / dailyParameters?.allWords?.length);
+    }
+  }, [
+    correctWords.length,
+    dailyParameters?.allWords?.length,
+    dailyParameters?.letters,
+    isFocused,
+    setFocus,
+    setPctWordsFound,
+  ]);
 
   return (
     <div className="main">
@@ -192,7 +207,7 @@ const Main = ({ animateParameters, dictionary }) => {
             />
           </ParameterSelector>
 
-          <div className="column justify-center w-60">
+          <div className="column justify-center w-60 whitespace-nowrap">
             <CardFlip
               flipped={revealedParametersFlipped}
               frontChildren={<div className="question-mark" />}

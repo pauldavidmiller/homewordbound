@@ -23,6 +23,18 @@ const App = () => {
       </Modal>
       <Header setProfileClosed={setProfileClosed} />
       <Main animateParameters={animateParameters} dictionary={dictionary} />
+      <div className="pt-4">
+        <button
+          type="button"
+          className="btn-blue justify-center h-10 w-30"
+          onClick={(e) => {
+            e.preventDefault();
+            localStorage.clear();
+          }}
+        >
+          Clear Storage
+        </button>
+      </div>
     </div>
   );
 };

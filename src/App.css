@@ -14,7 +14,7 @@ body {
 
 .container {
   @apply bg-gray-800;
-  @apply p-5;
+  @apply min-w-min p-5;
   @apply rounded-lg;
 }
 
