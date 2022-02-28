@@ -33,7 +33,7 @@ const Input = ({
   );
 };
 
-const Main = ({ animateParameters, dictionary }) => {
+const Main = () => {
   // TODO: replace with real parameter data
   const [dailyParameters, setDailyParameters] = useLocalStorage(
     "dailyParameters",
