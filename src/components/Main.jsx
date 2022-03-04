@@ -1,6 +1,6 @@
 import React from "react";
 import ParameterSelector from "./ParameterSelector";
-import { getFakeDailyParameterData } from "../data/fakedata";
+import { getDailyParameterData } from "../data/data";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import CorrectWords from "./CorrectWords";
 import CardFlip from "./CardFlip";
@@ -37,7 +37,7 @@ const Main = () => {
   // TODO: replace with real parameter data
   const [dailyParameters, setDailyParameters] = useLocalStorage(
     "dailyParameters",
-    getFakeDailyParameterData()
+    getDailyParameterData()
   );
   const [correctWords, setCorrectWords] = useLocalStorage("correctWords", []);
   const [pctWordsFound, setPctWordsFound] = useLocalStorage("pctWordsFound", 0);
@@ -161,18 +161,6 @@ const Main = () => {
           setAllFocus(focusPos);
         }}
       >
-        {/* <div className="wrap justify-center">
-        <button
-          type="button"
-          className="btn-blue text-center text-2xl my-3"
-          onClick={(e) => {
-            e.preventDefault();
-            setDoAnimation(true);
-          }}
-        >
-          Get Parameters
-        </button>
-      </div> */}
         <div className="container row justify-center my-5">
           <ParameterSelector
             title="Length of Word"
@@ -218,7 +206,7 @@ const Main = () => {
                     ?.map((letter, index) => {
                       return (
                         <div className="row justify-center my-1" key={index}>
-                          <div className="tile">{letter}</div>
+                          <div className="tile">{letter?.toUpperCase()}</div>
                           <div className="row">
                             <div className="mx-3 text-center text-xl py-7">
                               <span>in Position </span>
