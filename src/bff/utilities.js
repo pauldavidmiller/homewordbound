@@ -1,5 +1,5 @@
-export const getCurrentDateTime = (date = null) => {
-  const d = date ?? new Date();
+export const getCurrentDateTime = (date = new Date()) => {
+  const d = new Date(date);
   return d.toLocaleDateString("en-US");
 };
 
