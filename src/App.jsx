@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header.jsx";
 import Modal from "./components/Modal.jsx";
 import Main from "./components/Main.jsx";
-import { getDictionary } from "./data/main_dictionary_object.jsx";
+import { getDictionary } from "./data/main_dictionary_post_parse.jsx";
 
 import "./App.css";
 import DataGenerator from "./components/DataGenerator.jsx";
