@@ -161,7 +161,7 @@ const Main = () => {
           setAllFocus(focusPos);
         }}
       >
-        <div className="container row justify-center my-5">
+        <div className="container row self-center justify-center my-5">
           <ParameterSelector
             title="Length of Word"
             imageClassName="tile-dropper"
@@ -174,6 +174,11 @@ const Main = () => {
                 <div className="tile">{dailyParameters?.letters?.length}</div>
               }
             />
+            {/* <DiceRoll
+              doRoll={wordLengthFlipped}
+              setDoRoll={setWordLengthFlipped}
+              cheatValue={dailyParameters?.letters?.length}
+            /> */}
           </ParameterSelector>
           <ParameterSelector
             title="Number of Tiles Given"
@@ -193,6 +198,14 @@ const Main = () => {
                 </div>
               }
             />
+            {/* <DiceRoll
+              doRoll={numTilesFlipped}
+              setDoRoll={setNumTilesFlipped}
+              cheatValue={
+                dailyParameters?.letters?.filter((letter) => letter !== null)
+                  ?.length
+              }
+            /> */}
           </ParameterSelector>
 
           <div className="column justify-center w-60 whitespace-nowrap">
@@ -227,13 +240,13 @@ const Main = () => {
 
         <CardFlip
           flipped={inputFlipped}
-          frontChildren={<div className="container row justify-center h-52" />}
+          frontChildren={<div className="container row bottom-0 h-40" />}
           backChildren={
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="container column justify-center h-52"
+              className="container column bottom-0 h-40"
             >
-              <div className="row justify-center">
+              <div className="row self-center">
                 {fields.map((item, index) => {
                   return (
                     <div className="px-1" key={item.id}>
@@ -310,7 +323,7 @@ const Main = () => {
                   </button>
                 </div>
               </div>
-              <div className="row justify-center m-5 text-red-600 font-bold">
+              <div className="row justify-center mt-2 text-red-600 font-bold">
                 <span className="h-10">{isInvalidWordText}</span>
               </div>
             </form>
