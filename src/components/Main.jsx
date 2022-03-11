@@ -93,7 +93,7 @@ const Main = () => {
       }),
     },
   });
-  const { fields, remove } = useFieldArray({
+  const { fields } = useFieldArray({
     control,
     name: "letterInputs",
   });
@@ -165,31 +165,22 @@ const Main = () => {
           <div className="column justify-center">
             <ParameterSelector
               title="Length of Word"
-              // imageClassName="tile-dropper"
               className="mt-5 ml-5 mr-8 mb-5"
             >
               <CardFlip
                 flipped={wordLengthFlipped}
-                // frontChildren={<div className="question-mark" />}
-                frontChildren={<div className="tile vector">ℓ</div>}
+                frontChildren={<div className="tile">ℓ</div>}
                 backChildren={
                   <div className="tile">{dailyParameters?.letters?.length}</div>
                 }
               />
-              {/* <DiceRoll
-              doRoll={wordLengthFlipped}
-              setDoRoll={setWordLengthFlipped}
-              cheatValue={dailyParameters?.letters?.length}
-            /> */}
             </ParameterSelector>
             <ParameterSelector
               title="Number of Tiles Given"
-              // imageClassName="tile-dropper"
               className="mt-5 ml-5 mr-8 mb-5"
             >
               <CardFlip
                 flipped={numTilesFlipped}
-                // frontChildren={<div className="question-mark" />}
                 frontChildren={<div className="tile">#</div>}
                 backChildren={
                   <div className="tile">
@@ -201,14 +192,6 @@ const Main = () => {
                   </div>
                 }
               />
-              {/* <DiceRoll
-              doRoll={numTilesFlipped}
-              setDoRoll={setNumTilesFlipped}
-              cheatValue={
-                dailyParameters?.letters?.filter((letter) => letter !== null)
-                  ?.length
-              }
-            /> */}
             </ParameterSelector>
           </div>
 
@@ -336,7 +319,7 @@ const Main = () => {
       </div>
       <CorrectWords
         correctWords={correctWords}
-        isOpen={true}
+        pctWordsFound={pctWordsFound}
         className="correct-words"
       />
     </div>
