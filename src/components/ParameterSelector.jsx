@@ -3,10 +3,12 @@ import classnames from "tailwindcss-classnames";
 
 const ParameterSelector = ({ title, imageClassName, className, children }) => {
   return (
-    <div className="column">
-      <h1 className="text-white font-bold text-xl text-center">{title}</h1>
-      <div className={classnames(imageClassName, className)}></div>
-      {children}
+    <div className="column p-3">
+      <h1 className="text-white font-bold text-xl text-center pb-1">{title}</h1>
+      {imageClassName && (
+        <div className={classnames(imageClassName, className)}></div>
+      )}
+      <div className="justify-center">{children}</div>
     </div>
   );
 };

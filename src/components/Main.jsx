@@ -162,43 +162,46 @@ const Main = () => {
         }}
       >
         <div className="container row self-center justify-center my-5">
-          <ParameterSelector
-            title="Length of Word"
-            imageClassName="tile-dropper"
-            className="mt-5 ml-5 mr-8 mb-5"
-          >
-            <CardFlip
-              flipped={wordLengthFlipped}
-              frontChildren={<div className="question-mark" />}
-              backChildren={
-                <div className="tile">{dailyParameters?.letters?.length}</div>
-              }
-            />
-            {/* <DiceRoll
+          <div className="column justify-center">
+            <ParameterSelector
+              title="Length of Word"
+              // imageClassName="tile-dropper"
+              className="mt-5 ml-5 mr-8 mb-5"
+            >
+              <CardFlip
+                flipped={wordLengthFlipped}
+                // frontChildren={<div className="question-mark" />}
+                frontChildren={<div className="tile vector">ℓ</div>}
+                backChildren={
+                  <div className="tile">{dailyParameters?.letters?.length}</div>
+                }
+              />
+              {/* <DiceRoll
               doRoll={wordLengthFlipped}
               setDoRoll={setWordLengthFlipped}
               cheatValue={dailyParameters?.letters?.length}
             /> */}
-          </ParameterSelector>
-          <ParameterSelector
-            title="Number of Tiles Given"
-            imageClassName="tile-dropper"
-            className="mt-5 ml-5 mr-8 mb-5"
-          >
-            <CardFlip
-              flipped={numTilesFlipped}
-              frontChildren={<div className="question-mark" />}
-              backChildren={
-                <div className="tile">
-                  {
-                    dailyParameters?.letters?.filter(
-                      (letter) => letter !== null
-                    )?.length
-                  }
-                </div>
-              }
-            />
-            {/* <DiceRoll
+            </ParameterSelector>
+            <ParameterSelector
+              title="Number of Tiles Given"
+              // imageClassName="tile-dropper"
+              className="mt-5 ml-5 mr-8 mb-5"
+            >
+              <CardFlip
+                flipped={numTilesFlipped}
+                // frontChildren={<div className="question-mark" />}
+                frontChildren={<div className="tile">#</div>}
+                backChildren={
+                  <div className="tile">
+                    {
+                      dailyParameters?.letters?.filter(
+                        (letter) => letter !== null
+                      )?.length
+                    }
+                  </div>
+                }
+              />
+              {/* <DiceRoll
               doRoll={numTilesFlipped}
               setDoRoll={setNumTilesFlipped}
               cheatValue={
@@ -206,9 +209,10 @@ const Main = () => {
                   ?.length
               }
             /> */}
-          </ParameterSelector>
+            </ParameterSelector>
+          </div>
 
-          <div className="column justify-center w-60 whitespace-nowrap">
+          <div className="column justify-center pl-5 w-60 whitespace-nowrap">
             <CardFlip
               flipped={revealedParametersFlipped}
               frontChildren={<div className="question-mark" />}
@@ -314,7 +318,7 @@ const Main = () => {
                     </div>
                   );
                 })}
-                <div className="column justify-center mx-5">
+                <div className="column justify-center ml-5 mr-1">
                   <button
                     type="submit"
                     className="btn-blue justify-center h-10 w-30"
