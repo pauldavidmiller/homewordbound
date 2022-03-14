@@ -1,11 +1,9 @@
 import React from "react";
-import ParameterSelector from "./ParameterSelector";
-import { getDailyParameterData } from "../data/data";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import useInterval from "../hooks/useInterval";
+import ParameterSelector from "./ParameterSelector";
 import CorrectWords from "./CorrectWords";
 import CardFlip from "./CardFlip";
-import useInterval from "../hooks/useInterval";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Input = ({
   name,
@@ -33,14 +31,7 @@ const Input = ({
   );
 };
 
-const Main = () => {
-  // TODO: replace with real parameter data
-  const [gameData, setGameData] = useLocalStorage("gameData", {
-    dailyParameters: getDailyParameterData(),
-    correctWords: [],
-    pctWordsFound: 0,
-  });
-
+const Main = ({ gameData, setGameData }) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [wordLengthFlipped, setWordLengthFlipped] = React.useState(false);
   const [numTilesFlipped, setNumTilesFlipped] = React.useState(false);

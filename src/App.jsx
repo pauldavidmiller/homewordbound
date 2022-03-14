@@ -6,15 +6,22 @@ import { getDictionary } from "./data/main_dictionary_post_parse.jsx";
 
 import "./App.css";
 import DataGenerator from "./components/DataGenerator.jsx";
+import { useLocalStorage } from "./hooks/useLocalStorage.jsx";
+import { getDailyParameterData } from "./data/data.jsx";
 
 const createParameterData = true;
 const numDaysParameterData = 100;
 const debugParameterData = true;
 
 const App = () => {
-  const [profileClosed, setProfileClosed] = React.useState(true);
   // Dictionary is initialized here so that typing the letters is faster and doesn't rerender with Main
   const [dictionary, setDictionary] = React.useState(getDictionary());
+  const [profileClosed, setProfileClosed] = React.useState(true);
+  const [gameData, setGameData] = useLocalStorage("gameData", {
+    dailyParameters: getDailyParameterData(),
+    correctWords: [],
+    pctWordsFound: 0,
+  });
 
   return (
     <div className="app">
@@ -26,7 +33,7 @@ const App = () => {
         This is the profile
       </Modal>
       <Header setProfileClosed={setProfileClosed} />
-      <Main />
+      <Main gameData={gameData} setGameData={setGameData} />
       {createParameterData && (
         <DataGenerator
           numDaysParameterData={numDaysParameterData}
