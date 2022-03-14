@@ -7,8 +7,9 @@ function getStorageValue(key, defaultValue) {
   if (saved !== null) {
     const parsedSaved = JSON.parse(saved);
     if (
-      parsedSaved.day !== undefined &&
-      getCurrentDateTime(parsedSaved.day) !== getCurrentDateTime()
+      parsedSaved?.dailyParameters?.day === undefined ||
+      getCurrentDateTime(parsedSaved?.dailyParameters?.day) !==
+        getCurrentDateTime()
     ) {
       return defaultValue;
     }

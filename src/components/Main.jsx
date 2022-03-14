@@ -35,12 +35,11 @@ const Input = ({
 
 const Main = () => {
   // TODO: replace with real parameter data
-  const [dailyParameters, setDailyParameters] = useLocalStorage(
-    "dailyParameters",
-    getDailyParameterData()
-  );
-  const [correctWords, setCorrectWords] = useLocalStorage("correctWords", []);
-  const [pctWordsFound, setPctWordsFound] = useLocalStorage("pctWordsFound", 0);
+  const [gameData, setGameData] = useLocalStorage("gameData", {
+    dailyParameters: getDailyParameterData(),
+    correctWords: [],
+    pctWordsFound: 0,
+  });
 
   const [isFocused, setIsFocused] = React.useState(false);
   const [wordLengthFlipped, setWordLengthFlipped] = React.useState(false);
@@ -86,7 +85,7 @@ const Main = () => {
     handleSubmit,
   } = useForm({
     defaultValues: {
-      letterInputs: dailyParameters?.letters?.map((x) => {
+      letterInputs: gameData?.dailyParameters?.letters?.map((x) => {
         return {
           letter: x,
         };
@@ -99,7 +98,7 @@ const Main = () => {
   });
 
   const [focusPos, setFocusPos] = React.useState(
-    dailyParameters?.letters?.indexOf(null)
+    gameData?.dailyParameters?.letters?.indexOf(null)
   );
 
   const setAllFocus = (index) => {
@@ -118,39 +117,57 @@ const Main = () => {
 
     const wordLowerCase = word.toLowerCase();
 
-    if (!dailyParameters?.allWords?.includes(wordLowerCase)) {
+    if (!gameData?.dailyParameters?.allWords?.includes(wordLowerCase)) {
       setInvalidWordText("Invalid Word");
-    } else if (correctWords.find((x) => x === wordLowerCase) !== undefined) {
+    } else if (
+      gameData?.correctWords.find((x) => x === wordLowerCase) !== undefined
+    ) {
       setInvalidWordText("Already found");
     } else {
       // If in the given words and not already in the correctWords found array
       setInvalidWordText("");
-      setCorrectWords((correctWords) => [...correctWords, wordLowerCase]);
+      setGameData((gameData) => {
+        return {
+          dailyParameters: gameData?.dailyParameters,
+          correctWords: [...gameData?.correctWords, wordLowerCase],
+          pctWordsFound: gameData?.pctWordsFound,
+        };
+      });
     }
 
     reset();
-    setAllFocus(dailyParameters?.letters?.indexOf(null));
+    setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null));
   };
 
   React.useEffect(() => {
     if (!isFocused) {
       setFocus(
-        `letterInputs.${dailyParameters?.letters?.indexOf(null)}.letter`
+        `letterInputs.${gameData?.dailyParameters?.letters?.indexOf(
+          null
+        )}.letter`
       );
-      setFocusPos(dailyParameters?.letters?.indexOf(null));
+      setFocusPos(gameData?.dailyParameters?.letters?.indexOf(null));
       setIsFocused(true);
     }
 
-    if (correctWords?.length > 0) {
-      setPctWordsFound(correctWords.length / dailyParameters?.allWords?.length);
+    if (gameData?.correctWords?.length > 0) {
+      setGameData((gameData) => {
+        return {
+          dailyParameters: gameData?.dailyParameters,
+          correctWords: gameData?.correctWords,
+          pctWordsFound:
+            gameData?.correctWords.length /
+            gameData?.dailyParameters?.allWords?.length,
+        };
+      });
     }
   }, [
-    correctWords.length,
-    dailyParameters?.allWords?.length,
-    dailyParameters?.letters,
+    gameData?.correctWords?.length,
+    gameData?.dailyParameters.allWords.length,
+    gameData?.dailyParameters?.letters,
     isFocused,
     setFocus,
-    setPctWordsFound,
+    setGameData,
   ]);
 
   return (
@@ -171,7 +188,9 @@ const Main = () => {
                 flipped={wordLengthFlipped}
                 frontChildren={<div className="tile">ℓ</div>}
                 backChildren={
-                  <div className="tile">{dailyParameters?.letters?.length}</div>
+                  <div className="tile">
+                    {gameData?.dailyParameters?.letters?.length}
+                  </div>
                 }
               />
             </ParameterSelector>
@@ -185,7 +204,7 @@ const Main = () => {
                 backChildren={
                   <div className="tile">
                     {
-                      dailyParameters?.letters?.filter(
+                      gameData?.dailyParameters?.letters?.filter(
                         (letter) => letter !== null
                       )?.length
                     }
@@ -201,7 +220,7 @@ const Main = () => {
               frontChildren={<div className="question-mark" />}
               backChildren={
                 <div className="column justify-center">
-                  {dailyParameters?.letters
+                  {gameData?.dailyParameters?.letters
                     ?.filter((letter) => letter !== null)
                     ?.map((letter, index) => {
                       return (
@@ -211,8 +230,9 @@ const Main = () => {
                             <div className="mx-3 text-center text-xl py-7">
                               <span>in Position </span>
                               <span>
-                                {+dailyParameters?.letters?.indexOf(letter) +
-                                  +1}
+                                {+gameData?.dailyParameters?.letters?.indexOf(
+                                  letter
+                                ) + +1}
                               </span>
                             </div>
                           </div>
@@ -251,12 +271,13 @@ const Main = () => {
                             e.preventDefault();
                             if (e.keyCode === 8) {
                               // Delete
-                              const prevIndex = dailyParameters?.letters
-                                ?.slice(0, index)
-                                ?.lastIndexOf(null);
+                              const prevIndex =
+                                gameData?.dailyParameters?.letters
+                                  ?.slice(0, index)
+                                  ?.lastIndexOf(null);
                               if (
                                 (index + 1 ===
-                                  dailyParameters?.letters?.length ||
+                                  gameData?.dailyParameters?.letters?.length ||
                                   prevIndex === -1) &&
                                 getValues(`letterInputs.${index}.letter`) !==
                                   null &&
@@ -283,10 +304,10 @@ const Main = () => {
                               );
                               if (
                                 index + 1 <
-                                dailyParameters?.letters?.length
+                                gameData?.dailyParameters?.letters?.length
                               ) {
                                 const nextIndex =
-                                  dailyParameters?.letters?.indexOf(
+                                  gameData?.dailyParameters?.letters?.indexOf(
                                     null,
                                     index + 1
                                   );
@@ -318,8 +339,8 @@ const Main = () => {
         />
       </div>
       <CorrectWords
-        correctWords={correctWords}
-        pctWordsFound={pctWordsFound}
+        correctWords={gameData?.correctWords}
+        pctWordsFound={gameData?.pctWordsFound}
         className="correct-words"
       />
     </div>
