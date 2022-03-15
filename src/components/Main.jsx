@@ -4,6 +4,8 @@ import useInterval from "../hooks/useInterval";
 import ParameterSelector from "./ParameterSelector";
 import CorrectWords from "./CorrectWords";
 import CardFlip from "./CardFlip";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { getDailyParameterData } from "../data/data";
 
 const Input = ({
   name,
@@ -31,7 +33,22 @@ const Input = ({
   );
 };
 
-const Main = ({ gameData, setGameData }) => {
+const Main = () => {
+  const [gameData, setGameData] = useLocalStorage("wordict-state", {
+    dailyParameters: getDailyParameterData(),
+    correctWords: [],
+  });
+  const [statisticsData, setStatisticsData] = useLocalStorage(
+    "wordict-statistics",
+    {
+      [gameData?.dailyParameters?.day]: {
+        pctWordsFound:
+          gameData?.correctWords.length /
+          gameData?.dailyParameters?.allWords?.length,
+      },
+    }
+  );
+
   const [isFocused, setIsFocused] = React.useState(false);
   const [wordLengthFlipped, setWordLengthFlipped] = React.useState(false);
   const [numTilesFlipped, setNumTilesFlipped] = React.useState(false);
@@ -121,7 +138,6 @@ const Main = ({ gameData, setGameData }) => {
         return {
           dailyParameters: gameData?.dailyParameters,
           correctWords: [...gameData?.correctWords, wordLowerCase],
-          pctWordsFound: gameData?.pctWordsFound,
         };
       });
     }
@@ -141,24 +157,25 @@ const Main = ({ gameData, setGameData }) => {
       setIsFocused(true);
     }
 
-    if (gameData?.correctWords?.length > 0) {
-      setGameData((gameData) => {
-        return {
-          dailyParameters: gameData?.dailyParameters,
-          correctWords: gameData?.correctWords,
+    if (gameData?.dailyParameters?.day) {
+      setStatisticsData((statisticsData) => ({
+        ...statisticsData,
+        [gameData?.dailyParameters?.day]: {
           pctWordsFound:
             gameData?.correctWords.length /
             gameData?.dailyParameters?.allWords?.length,
-        };
-      });
+        },
+      }));
     }
   }, [
-    gameData?.correctWords?.length,
-    gameData?.dailyParameters.allWords.length,
+    gameData?.correctWords.length,
+    gameData?.dailyParameters?.allWords?.length,
+    gameData?.dailyParameters?.day,
     gameData?.dailyParameters?.letters,
     isFocused,
     setFocus,
     setGameData,
+    setStatisticsData,
   ]);
 
   return (
@@ -276,6 +293,7 @@ const Main = ({ gameData, setGameData }) => {
                               ) {
                                 setValue(`letterInputs.${index}.letter`, null);
                               } else {
+                                // TODO: fix if deleting 0th and 1st index
                                 if (prevIndex > -1) {
                                   setValue(
                                     `letterInputs.${prevIndex}.letter`,
@@ -331,7 +349,9 @@ const Main = ({ gameData, setGameData }) => {
       </div>
       <CorrectWords
         correctWords={gameData?.correctWords}
-        pctWordsFound={gameData?.pctWordsFound}
+        pctWordsFound={
+          statisticsData[gameData?.dailyParameters?.day]?.pctWordsFound
+        }
         className="correct-words"
       />
     </div>

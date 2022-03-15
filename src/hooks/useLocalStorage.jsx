@@ -6,13 +6,16 @@ function getStorageValue(key, defaultValue) {
   const saved = localStorage.getItem(key);
   if (saved !== null) {
     const parsedSaved = JSON.parse(saved);
+
     if (
-      parsedSaved?.dailyParameters?.day === undefined ||
-      getCurrentDateTime(parsedSaved?.dailyParameters?.day) !==
-        getCurrentDateTime()
+      key === "wordict-state" &&
+      (parsedSaved?.dailyParameters?.day === undefined ||
+        getCurrentDateTime(parsedSaved.dailyParameters.day) !==
+          getCurrentDateTime())
     ) {
       return defaultValue;
     }
+
     return parsedSaved;
   }
   return defaultValue;

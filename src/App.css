@@ -65,12 +65,6 @@ body {
   @apply text-white;
 }
 
-.modal {
-  background: rgba(0, 0, 0, 0.6);
-  @apply fixed w-full h-full;
-  @apply z-50;
-}
-
 .settings {
   @apply text-base text-black;
   @apply row whitespace-nowrap overflow-hidden;
@@ -109,8 +103,13 @@ body {
   @apply border border-gray-400 rounded-xl;
 }
 
+.modal {
+  @apply fixed;
+  @apply z-50;
+}
+
 .modal-main {
-  @apply fixed bg-gray-50 w-max h-auto top-1/2 left-1/2;
+  @apply fixed bg-gray-50 w-2/3 h-max top-1/2 left-1/2;
   @apply transform -translate-x-1/2 -translate-y-1/2;
   @apply text-black font-sans;
   @apply rounded;
@@ -172,6 +171,7 @@ body {
   @apply w-20 h-20;
 }
 
+/* Dice */
 .dice {
   @apply w-24 h-24;
   @apply justify-center;
@@ -295,4 +295,64 @@ body {
 .six-5 {
   top: 50%;
   left: 80%;
+}
+
+/* Bar Chart */
+.graph-wrapper {
+  @apply my-2 pt-2 pb-8;
+  @apply border border-gray-600 rounded-md;
+}
+
+.graph-title {
+  @apply text-center font-bold text-xl;
+}
+
+.graph {
+  max-width: 1000px;
+  height: 400px;
+  @apply ml-auto row relative;
+}
+
+.line {
+  @apply absolute top-0 bottom-0 left-1 -z-10;
+  @apply w-0.5 bg-gray-300;
+}
+
+.bar-text-content {
+  @apply min-w-max;
+  @apply h-full;
+  width: 12%;
+}
+
+.bar-text {
+  @apply pt-1 pr-2;
+  @apply text-right min-w-max;
+  @apply w-full;
+}
+
+.bar-lines-container {
+  @apply h-full;
+  width: 88%;
+  @apply relative -z-20;
+  @apply bg-gray-200;
+}
+
+.bar {
+  @apply bg-indigo-500 z-20;
+  @apply border-b border-r border-solid border-black;
+}
+
+.bar:last-child {
+  @apply border-b-0;
+}
+
+.markers {
+  width: 88%;
+  @apply relative mt-1;
+}
+
+.markers > span {
+  @apply absolute;
+  @apply text-sm;
+  transform: translateX(-6px);
 }
