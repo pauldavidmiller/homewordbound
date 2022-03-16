@@ -6,6 +6,7 @@ import CorrectWords from "./CorrectWords";
 import CardFlip from "./CardFlip";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { getDailyParameterData } from "../data/data";
+import classnames from "tailwindcss-classnames";
 
 const Input = ({
   name,
@@ -29,6 +30,8 @@ const Input = ({
       maxLength={1}
       value={value?.toUpperCase() ?? ""}
       onKeyDown={onKeyDown}
+      autoComplete={"off"}
+      autoCapitalize={"on"}
     />
   );
 };
@@ -109,10 +112,13 @@ const Main = () => {
     gameData?.dailyParameters?.letters?.indexOf(null)
   );
 
-  const setAllFocus = (index) => {
-    setFocus(`letterInputs.${index}.letter`);
-    setFocusPos(index);
-  };
+  const setAllFocus = React.useCallback(
+    (index) => {
+      setFocus(`letterInputs.${index}.letter`);
+      setFocusPos(index);
+    },
+    [setFocus]
+  );
 
   const onSubmit = async (data) => {
     // Check against correctWords and add to list if valid
@@ -147,13 +153,12 @@ const Main = () => {
   };
 
   React.useEffect(() => {
+    document.addEventListener("click", () =>
+      setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null))
+    );
+
     if (!isFocused) {
-      setFocus(
-        `letterInputs.${gameData?.dailyParameters?.letters?.indexOf(
-          null
-        )}.letter`
-      );
-      setFocusPos(gameData?.dailyParameters?.letters?.indexOf(null));
+      setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null));
       setIsFocused(true);
     }
 
@@ -173,6 +178,7 @@ const Main = () => {
     gameData?.dailyParameters?.day,
     gameData?.dailyParameters?.letters,
     isFocused,
+    setAllFocus,
     setFocus,
     setGameData,
     setStatisticsData,
@@ -270,7 +276,10 @@ const Main = () => {
                         control={control}
                         index={index}
                         name={`letterInputs.${index}.letter`}
-                        className="tile pb-2 border border-black"
+                        className={classnames(
+                          item.letter !== null ? "border-2 border-red-500" : "",
+                          "tile pb-2 outline-2 outline-green-500 shadow-green-700 caret-transparent"
+                        )}
                         disabled={item.letter !== null ? true : false}
                         onKeyDown={(e) => {
                           if (e.keyCode === 13) {
@@ -283,17 +292,20 @@ const Main = () => {
                                 gameData?.dailyParameters?.letters
                                   ?.slice(0, index)
                                   ?.lastIndexOf(null);
+
+                              const lastIndex =
+                                gameData?.dailyParameters?.letters?.lastIndexOf(
+                                  null
+                                );
+
                               if (
-                                (index + 1 ===
-                                  gameData?.dailyParameters?.letters?.length ||
-                                  prevIndex === -1) &&
+                                (index === lastIndex || prevIndex === -1) &&
                                 getValues(`letterInputs.${index}.letter`) !==
                                   null &&
                                 getValues(`letterInputs.${index}.letter`) !== ""
                               ) {
                                 setValue(`letterInputs.${index}.letter`, null);
                               } else {
-                                // TODO: fix if deleting 0th and 1st index
                                 if (prevIndex > -1) {
                                   setValue(
                                     `letterInputs.${prevIndex}.letter`,

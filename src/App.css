@@ -114,7 +114,7 @@ body {
   @apply text-black font-sans;
   @apply rounded;
   @apply p-3;
-
+  /* 
   & fieldset {
     @apply p-1;
     @apply w-full;
@@ -128,7 +128,7 @@ body {
       @apply flex flex-wrap gap-2;
       @apply min-w-min;
     }
-  }
+  } */
 }
 
 .main {
@@ -325,7 +325,7 @@ body {
 }
 
 .bar-text {
-  @apply pt-1 pr-2;
+  @apply pt-1 px-2;
   @apply text-right min-w-max;
   @apply w-full;
 }
