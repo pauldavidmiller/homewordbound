@@ -1,11 +1,8 @@
-import { faCog, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import Settings from "./Settings";
+import { faInfo, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Header = ({ setProfileClosed }) => {
-  const [settingsOpen, setSettingsOpen] = React.useState(false);
-
+const Header = ({ setInfoOpen, setProfileOpen }) => {
   return (
     <div className="header row">
       <div className="flex flex-row w-1/3">
@@ -14,13 +11,13 @@ const Header = ({ setProfileClosed }) => {
           className="btn-settings mx-2"
           onClick={(e) => {
             e.preventDefault();
-            setSettingsOpen((x) => !x);
+            setInfoOpen((x) => !x);
           }}
         >
-          <FontAwesomeIcon icon={faCog} size="lg" />
+          <FontAwesomeIcon icon={faInfo} size="lg" />
         </button>
       </div>
-      <header className="text-center text-white font-bold text-2xl mt-1 w-1/3">
+      <header className="text-center text-white font-bold text-3xl mt-1 w-1/3">
         Wordict
       </header>
       <div className="flex flex-row-reverse w-1/3">
@@ -29,13 +26,12 @@ const Header = ({ setProfileClosed }) => {
           className="btn-profile mx-2"
           onClick={(e) => {
             e.preventDefault();
-            setProfileClosed((x) => !x);
+            setProfileOpen((x) => !x);
           }}
         >
           <FontAwesomeIcon icon={faUser} size="lg" />
         </button>
       </div>
-      {settingsOpen && <Settings />}
     </div>
   );
 };

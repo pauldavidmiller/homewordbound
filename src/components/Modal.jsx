@@ -1,23 +1,22 @@
 import React from "react";
+import classnames from "tailwindcss-classnames";
 
-const Modal = ({ name, modalClosed, setModalClosed, children }) => {
+const Modal = ({ name, modalOpen, setModalOpen, className, children }) => {
   return (
     <>
-      {!modalClosed && (
-        <div className="modal">
-          <div className="modal-main">
-            <header className="text-2xl font-bold bg-gray-400 p-3 rounded">
-              {name}
-            </header>
-            <div>{children}</div>
-            <button
-              type="button"
-              className="btn-blue float-right px-2"
-              onClick={() => setModalClosed(true)}
-            >
-              OK
-            </button>
-          </div>
+      {modalOpen && (
+        <div className={classnames("modal", className)}>
+          <header className="text-2xl font-bold bg-gray-400 p-3 rounded">
+            {name}
+          </header>
+          {children}
+          <button
+            type="button"
+            className="btn-blue px-2 absolute bottom-3 right-3"
+            onClick={() => setModalOpen(false)}
+          >
+            OK
+          </button>
         </div>
       )}
     </>

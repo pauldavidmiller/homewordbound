@@ -98,7 +98,7 @@ const Main = () => {
     defaultValues: {
       letterInputs: gameData?.dailyParameters?.letters?.map((x) => {
         return {
-          letter: x,
+          letter: x !== null ? x.toUpperCase() : null,
         };
       }),
     },

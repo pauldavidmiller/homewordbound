@@ -98,6 +98,8 @@ const Graph = ({ data, graphTitle }) => {
           <Markers />
         </div>
       </div>
+
+      <h3 className="text-lg text-center pt-6">% of Days in Each Range</h3>
     </div>
   );
 };

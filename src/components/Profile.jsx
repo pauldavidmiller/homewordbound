@@ -2,7 +2,7 @@ import React from "react";
 import BarChart from "./BarChart";
 import Modal from "./Modal";
 
-const Profile = ({ profileClosed, setProfileClosed }) => {
+const Profile = ({ profileOpen, setProfileOpen }) => {
   // Use graph to show distribution of what percentage of words
   // was found everyday --> localStorage.get("wordict-statistics")
   const statisticsData = JSON.parse(
@@ -10,11 +10,7 @@ const Profile = ({ profileClosed, setProfileClosed }) => {
   );
 
   return (
-    <Modal
-      name="Profile"
-      modalClosed={profileClosed}
-      setModalClosed={setProfileClosed}
-    >
+    <Modal name="Profile" modalOpen={profileOpen} setModalOpen={setProfileOpen}>
       <BarChart
         title={"Percentages of Daily Percentages"}
         statistics={statisticsData}

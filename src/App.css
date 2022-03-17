@@ -30,6 +30,12 @@ body {
   @apply flex flex-wrap;
 }
 
+.divider {
+  @apply w-full h-0.5;
+  @apply my-5;
+  @apply bg-gray-200;
+}
+
 .btn {
 }
 
@@ -53,6 +59,7 @@ body {
 
 .btn-settings {
   @apply btn;
+  @apply w-12 h-12;
   @apply p-2;
   @apply border-2 rounded-full;
   @apply text-white;
@@ -60,6 +67,7 @@ body {
 
 .btn-profile {
   @apply btn;
+  @apply w-12 h-12;
   @apply p-2;
   @apply border-2 rounded-full;
   @apply text-white;
@@ -104,14 +112,10 @@ body {
 }
 
 .modal {
-  @apply fixed;
   @apply z-50;
-}
-
-.modal-main {
-  @apply fixed bg-gray-50 w-2/3 h-max top-1/2 left-1/2;
+  @apply fixed bg-gray-900 w-2/3 h-full top-1/2 left-1/2;
   @apply transform -translate-x-1/2 -translate-y-1/2;
-  @apply text-black font-sans;
+  @apply font-sans;
   @apply rounded;
   @apply p-3;
   /* 
@@ -169,6 +173,13 @@ body {
   background-image: url("images/questionmark.png");
   @apply bg-no-repeat;
   @apply w-20 h-20;
+}
+
+.info-demo {
+  background-image: url("images/infodemo.png");
+  @apply bg-no-repeat;
+  @apply w-full h-24;
+  @apply m-3;
 }
 
 /* Dice */
@@ -301,10 +312,12 @@ body {
 .graph-wrapper {
   @apply my-2 pt-2 pb-8;
   @apply border border-gray-600 rounded-md;
+  @apply text-gray-50;
 }
 
 .graph-title {
   @apply text-center font-bold text-xl;
+  @apply pb-2;
 }
 
 .graph {
@@ -339,7 +352,7 @@ body {
 
 .bar {
   @apply bg-indigo-500 z-20;
-  @apply border-b border-r border-solid border-black;
+  @apply border-b border-r border-solid border-black rounded-br-md rounded-tr-md;
 }
 
 .bar:last-child {
