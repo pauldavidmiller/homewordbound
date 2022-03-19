@@ -17,7 +17,7 @@ const Header = ({ setInfoOpen, setProfileOpen }) => {
           <FontAwesomeIcon icon={faInfo} size="lg" />
         </button>
       </div>
-      <header className="text-center text-white font-bold text-3xl mt-1 w-1/3">
+      <header className="text-center text-white font-bold font-serif text-4xl mt-1 w-1/3">
         Wordict
       </header>
       <div className="flex flex-row-reverse w-1/3">

@@ -77,7 +77,12 @@ const Graph = ({ data, graphTitle }) => {
     return data.map((d) => {
       const percent = (d.value / allData) * 100;
       return (
-        <Bar percent={percent} height={(1 / data.length) * 100} key={d.name} />
+        <Bar
+          value={d.value}
+          percent={percent}
+          height={(1 / data.length) * 100}
+          key={d.name}
+        />
       );
     });
   };
@@ -99,7 +104,9 @@ const Graph = ({ data, graphTitle }) => {
         </div>
       </div>
 
-      <h3 className="text-lg text-center pt-6">% of Days in Each Range</h3>
+      <h3 className="text-lg text-center pt-6">
+        % of Days in Each Range (# of Days in Each Bar)
+      </h3>
     </div>
   );
 };
@@ -118,12 +125,11 @@ const Markers = () => {
   );
 };
 
-const Bar = ({ percent, height }) => {
+const Bar = ({ value, percent, height }) => {
   return (
-    <div
-      className="bar"
-      style={{ width: `${percent}%`, height: `${height}%` }}
-    />
+    <div className="bar" style={{ width: `${percent}%`, height: `${height}%` }}>
+      {value > 0 && <label className="float-right pr-1 pt-1">{value}</label>}
+    </div>
   );
 };
 

@@ -16,10 +16,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
       <div className="flex flex-wrap max-h-min">
         {correctWords?.sort().map((correctWord, i) => {
           return (
-            <div
-              key={i}
-              className="search-dropdown-list-item text-gray-200 px-2 m-1 h-6"
-            >
+            <div key={i} className="search-dropdown-list-item">
               {correctWord}
             </div>
           );

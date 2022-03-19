@@ -7,6 +7,11 @@ import CardFlip from "./CardFlip";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { getDailyParameterData } from "../data/data";
 import classnames from "tailwindcss-classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLongArrowAltRight,
+  faQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Input = ({
   name,
@@ -193,7 +198,7 @@ const Main = () => {
         }}
       >
         <div className="container row self-center justify-center my-5">
-          <div className="column justify-center">
+          <div className="column justify-center border-r-2 border-t-2 border-b-2 border-white">
             <ParameterSelector
               title="Length of Word"
               className="mt-5 ml-5 mr-8 mb-5"
@@ -228,10 +233,23 @@ const Main = () => {
             </ParameterSelector>
           </div>
 
+          <FontAwesomeIcon
+            icon={faLongArrowAltRight}
+            size="7x"
+            className="self-center text-white"
+          />
+
           <div className="column justify-center pl-5 w-60 whitespace-nowrap">
             <CardFlip
               flipped={revealedParametersFlipped}
-              frontChildren={<div className="question-mark" />}
+              // frontChildren={<div className="question-mark" />}
+              frontChildren={
+                <FontAwesomeIcon
+                  icon={faQuestion}
+                  size="7x"
+                  className="text-white"
+                />
+              }
               backChildren={
                 <div className="column justify-center">
                   {gameData?.dailyParameters?.letters
@@ -285,9 +303,10 @@ const Main = () => {
                           if (e.keyCode === 13) {
                             // Don't prevent default
                           } else {
-                            e.preventDefault();
                             if (e.keyCode === 8) {
                               // Delete
+                              e.preventDefault();
+
                               const prevIndex =
                                 gameData?.dailyParameters?.letters
                                   ?.slice(0, index)
@@ -315,10 +334,12 @@ const Main = () => {
                                 }
                               }
                             } else if (
-                              // Alphabet Upper or Lower Case
                               (e.keyCode >= 65 && e.keyCode <= 90) ||
                               (e.keyCode >= 97 && e.keyCode <= 122)
                             ) {
+                              // Alphabet Upper or Lower Case
+                              e.preventDefault();
+
                               setValue(
                                 `letterInputs.${index}.letter`,
                                 e.key.toUpperCase()

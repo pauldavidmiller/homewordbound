@@ -108,7 +108,8 @@ body {
 
 .search-dropdown-list-item {
   @apply dropdown-list-item text-left;
-  @apply border border-gray-400 rounded-xl;
+  @apply text-lg text-gray-200 border border-gray-400 rounded-2xl;
+  @apply px-3 m-1 h-8;
 }
 
 .modal {

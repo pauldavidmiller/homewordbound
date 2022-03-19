@@ -9,7 +9,7 @@ import { getDictionary } from "./data/main_dictionary_post_parse.jsx";
 import "./App.css";
 
 const createParameterData = true;
-const numDaysParameterData = 100;
+const numDaysParameterData = 2000;
 const debugParameterData = true;
 
 const App = () => {
