@@ -198,7 +198,7 @@ const Main = () => {
         }}
       >
         <div className="container row self-center justify-center my-5">
-          <div className="column justify-center border-r-2 border-t-2 border-b-2 border-white">
+          <div className="column justify-center border-r-2 border-t-2 border-b-2 border-blue-400">
             <ParameterSelector
               title="Length of Word"
               className="mt-5 ml-5 mr-8 mb-5"
@@ -236,7 +236,7 @@ const Main = () => {
           <FontAwesomeIcon
             icon={faLongArrowAltRight}
             size="7x"
-            className="self-center text-white"
+            className="self-center text-blue-400 -ml-0.5"
           />
 
           <div className="column justify-center pl-5 w-60 whitespace-nowrap">

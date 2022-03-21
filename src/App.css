@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-  @apply bg-gray-800;
+  @apply bg-green-800 opacity-90;
   @apply w-full h-full py-2;
   @apply sticky top-0;
 }
@@ -141,6 +141,7 @@ body {
   @apply w-full h-full min-w-min;
   @apply justify-center;
   @apply bg-gray-700;
+  @apply font-serif tracking-wide;
 }
 
 .main-input {
