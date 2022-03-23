@@ -5,8 +5,8 @@ import classnames from "tailwindcss-classnames";
 const LabeledCheckboxInput = forwardRef(
   ({ name, defaultChecked, onChange, onClick, className, children }, ref) => (
     <div>
-      <label className="row mt-1" htmlFor={name}>
-        <div className="w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+      <label className="row pt-1" htmlFor={name}>
+        <div className="w-10 pr-2 align-middle select-none transition duration-200 ease-in">
           <label
             htmlFor={name}
             className="block h-6 rounded-full bg-gray-600 cursor-pointer"
@@ -23,7 +23,7 @@ const LabeledCheckboxInput = forwardRef(
             />
           </label>
         </div>
-        <span className={classnames(className, "ml-1 mt-0.5")}>{children}</span>
+        <span className={classnames(className, "pl-1 pt-0.5")}>{children}</span>
       </label>
     </div>
   )

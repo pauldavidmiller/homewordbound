@@ -104,7 +104,7 @@ const Graph = ({ data, graphTitle }) => {
         </div>
       </div>
 
-      <h3 className="text-lg text-center pt-6">
+      <h3 className="graph-x-axis-text">
         % of Days in Each Range (# of Days in Each Bar)
       </h3>
     </div>

@@ -190,101 +190,95 @@ const Main = () => {
   ]);
 
   return (
-    <div className="main">
-      <div
-        className="main-input"
-        onClick={(e) => {
-          setAllFocus(focusPos);
-        }}
-      >
-        <div className="container row self-center justify-center my-5">
-          <div className="column justify-center border-r-2 border-t-2 border-b-2 border-blue-400">
-            <ParameterSelector
-              title="Length of Word"
-              className="mt-5 ml-5 mr-8 mb-5"
-            >
-              <CardFlip
-                flipped={wordLengthFlipped}
-                frontChildren={<div className="tile">ℓ</div>}
-                backChildren={
-                  <div className="tile">
-                    {gameData?.dailyParameters?.letters?.length}
-                  </div>
-                }
-              />
-            </ParameterSelector>
-            <ParameterSelector
-              title="Number of Tiles Given"
-              className="mt-5 ml-5 mr-8 mb-5"
-            >
-              <CardFlip
-                flipped={numTilesFlipped}
-                frontChildren={<div className="tile">#</div>}
-                backChildren={
-                  <div className="tile">
-                    {
-                      gameData?.dailyParameters?.letters?.filter(
-                        (letter) => letter !== null
-                      )?.length
-                    }
-                  </div>
-                }
-              />
-            </ParameterSelector>
-          </div>
-
-          <FontAwesomeIcon
-            icon={faLongArrowAltRight}
-            size="7x"
-            className="self-center text-blue-400 -ml-0.5"
-          />
-
-          <div className="column justify-center pl-5 w-60 whitespace-nowrap">
+    <div
+      className="main-input"
+      onClick={(e) => {
+        setAllFocus(focusPos);
+      }}
+    >
+      <div className="parameters">
+        <div className="column justify-center border-r-2 border-t-2 border-b-2 border-blue-400">
+          <ParameterSelector
+            title="Word Length"
+            className="pt-5 pl-5 pr-8 pb-5"
+          >
             <CardFlip
-              flipped={revealedParametersFlipped}
-              // frontChildren={<div className="question-mark" />}
-              frontChildren={
-                <FontAwesomeIcon
-                  icon={faQuestion}
-                  size="7x"
-                  className="text-white"
-                />
-              }
+              flipped={wordLengthFlipped}
+              frontChildren={<div className="tile">ℓ</div>}
               backChildren={
-                <div className="column justify-center">
-                  {gameData?.dailyParameters?.letters
-                    ?.filter((letter) => letter !== null)
-                    ?.map((letter, index) => {
-                      return (
-                        <div className="row justify-center my-1" key={index}>
-                          <div className="tile">{letter?.toUpperCase()}</div>
-                          <div className="row">
-                            <div className="mx-3 text-center text-xl py-7">
-                              <span>in Position </span>
-                              <span>
-                                {+gameData?.dailyParameters?.letters?.indexOf(
-                                  letter
-                                ) + +1}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                <div className="tile">
+                  {gameData?.dailyParameters?.letters?.length}
                 </div>
               }
             />
-          </div>
+          </ParameterSelector>
+          <ParameterSelector
+            title="# Tiles Given"
+            className="pt-5 pl-5 pr-8 pb-5"
+          >
+            <CardFlip
+              flipped={numTilesFlipped}
+              frontChildren={<div className="tile">#</div>}
+              backChildren={
+                <div className="tile">
+                  {
+                    gameData?.dailyParameters?.letters?.filter(
+                      (letter) => letter !== null
+                    )?.length
+                  }
+                </div>
+              }
+            />
+          </ParameterSelector>
         </div>
 
+        <FontAwesomeIcon
+          icon={faLongArrowAltRight}
+          size="3x"
+          className="self-center text-blue-400 -pl-0.5"
+        />
+
+        <div className="column justify-center w-60 whitespace-nowrap">
+          <CardFlip
+            flipped={revealedParametersFlipped}
+            frontChildren={
+              <FontAwesomeIcon
+                icon={faQuestion}
+                size="7x"
+                className="text-white"
+              />
+            }
+            backChildren={
+              <div className="column justify-center">
+                {gameData?.dailyParameters?.letters
+                  ?.filter((letter) => letter !== null)
+                  ?.map((letter, index) => {
+                    return (
+                      <div className="row justify-center py-1" key={index}>
+                        <div className="tile">{letter?.toUpperCase()}</div>
+                        <div className="row text-center text-md pl-2 self-center">
+                          <span>in Position</span>
+                          <span className="pl-2">
+                            {+gameData?.dailyParameters?.letters?.indexOf(
+                              letter
+                            ) + +1}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            }
+          />
+        </div>
+      </div>
+
+      <div className="card-flip h-40">
         <CardFlip
           flipped={inputFlipped}
-          frontChildren={<div className="container row bottom-0 h-40" />}
+          frontChildren={<div className="row" />}
           backChildren={
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="container column bottom-0 h-40"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="column">
               <div className="row self-center">
                 {fields.map((item, index) => {
                   return (
@@ -364,28 +358,23 @@ const Main = () => {
                     </div>
                   );
                 })}
-                <div className="column justify-center ml-5 mr-1">
-                  <button
-                    type="submit"
-                    className="btn-blue justify-center h-10 w-30"
-                  >
-                    Enter
-                  </button>
-                </div>
               </div>
-              <div className="row justify-center mt-2 text-red-600 font-bold">
+              <button type="submit" className="btn-blue self-center mt-2">
+                Enter
+              </button>
+              <div className="row justify-center pt-2 text-red-600 font-bold">
                 <span className="h-10">{isInvalidWordText}</span>
               </div>
             </form>
           }
         />
       </div>
+
       <CorrectWords
         correctWords={gameData?.correctWords}
         pctWordsFound={
           statisticsData[gameData?.dailyParameters?.day]?.pctWordsFound
         }
-        className="correct-words"
       />
     </div>
   );

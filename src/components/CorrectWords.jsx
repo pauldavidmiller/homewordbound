@@ -3,12 +3,12 @@ import classnames from "tailwindcss-classnames";
 
 const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
   return (
-    <div className={classnames("mx-5", className)}>
-      <h1 className="text-2xl font-bold text-gray-200 text-center whitespace-nowrap mt-2 mb-3">
-        <span className="text-center text-green-500 mr-1">
+    <div className={classnames("correct-words", className)}>
+      <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap mb-2">
+        <span className="text-center text-green-500 pr-1">
           {correctWords?.length}
         </span>
-        <span className="text-center mr-1">Found Words -</span>
+        <span className="text-center pr-1">Found Words -</span>
         <span className="text-center text-green-500">
           {Math.round(pctWordsFound * 100)}%
         </span>

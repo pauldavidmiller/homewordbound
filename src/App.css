@@ -3,19 +3,23 @@ body {
 }
 
 .app {
-  @apply bg-gray-800;
+  @apply content-center;
+  @apply w-screen h-screen;
+  @apply bg-gray-700;
 }
 
 .header {
-  @apply bg-green-800 opacity-90;
-  @apply w-full h-full py-2;
+  @apply z-40;
+  @apply bg-green-800;
+  @apply w-full h-16 py-2;
   @apply sticky top-0;
 }
 
 .container {
   @apply bg-gray-800;
-  @apply min-w-min p-5;
+  @apply p-5;
   @apply rounded-lg;
+  @apply row self-center justify-center;
 }
 
 .row {
@@ -32,7 +36,7 @@ body {
 
 .divider {
   @apply w-full h-0.5;
-  @apply my-5;
+  @apply my-2;
   @apply bg-gray-200;
 }
 
@@ -45,7 +49,7 @@ body {
 
 .btn-default {
   @apply btn;
-  @apply font-bold py-2 px-4 rounded;
+  @apply font-bold py-1 px-4 rounded;
 }
 
 .btn-blue {
@@ -108,14 +112,13 @@ body {
 
 .search-dropdown-list-item {
   @apply dropdown-list-item text-left;
-  @apply text-lg text-gray-200 border border-gray-400 rounded-2xl;
-  @apply px-3 m-1 h-8;
+  @apply text-sm text-gray-200 border border-gray-400 rounded-2xl;
+  @apply px-3 m-1 h-6;
 }
 
 .modal {
   @apply z-50;
-  @apply fixed bg-gray-900 w-2/3 h-full top-1/2 left-1/2;
-  @apply transform -translate-x-1/2 -translate-y-1/2;
+  @apply fixed bg-gray-900 h-full w-full justify-center;
   @apply font-sans;
   @apply rounded;
   @apply p-3;
@@ -146,23 +149,33 @@ body {
 
 .main-input {
   @apply column;
-  @apply ml-5;
-  @apply h-full;
+  @apply w-full;
+  @apply h-max;
   @apply bg-gray-700;
+}
+
+.parameters {
+  @apply container;
+  @apply mt-3;
+}
+
+.card-flip {
+  @apply container;
+  @apply mt-3;
 }
 
 .correct-words {
   @apply container;
   @apply column;
-  @apply w-80;
-  @apply mt-5;
+  @apply mt-3;
 }
 
 .tile {
   background-image: url("images/tile.jpg");
   @apply bg-no-repeat;
-  @apply w-20 h-20;
-  @apply text-center font-bold text-5xl pt-3.5 text-black;
+  @apply w-12 h-12;
+  @apply text-center font-bold text-3xl pt-2 text-black;
+  @apply self-center;
 }
 
 .tile-dropper {
@@ -180,8 +193,7 @@ body {
 .info-demo {
   background-image: url("images/infodemo.png");
   @apply bg-no-repeat;
-  @apply w-full h-24;
-  @apply m-3;
+  @apply w-full h-16;
 }
 
 /* Dice */
@@ -315,17 +327,18 @@ body {
   @apply my-2 pt-2 pb-8;
   @apply border border-gray-600 rounded-md;
   @apply text-gray-50;
+  @apply column place-items-center w-full;
 }
 
 .graph-title {
-  @apply text-center font-bold text-xl;
+  @apply text-center font-bold text-base;
   @apply pb-2;
 }
 
 .graph {
   max-width: 1000px;
   height: 400px;
-  @apply ml-auto row relative;
+  @apply row w-full;
 }
 
 .line {
@@ -334,6 +347,7 @@ body {
 }
 
 .bar-text-content {
+  @apply text-sm pt-0.5;
   @apply min-w-max;
   @apply h-full;
   width: 12%;
@@ -370,4 +384,8 @@ body {
   @apply absolute;
   @apply text-sm;
   transform: translateX(-6px);
+}
+
+.graph-x-axis-text {
+  @apply text-sm text-center pt-6;
 }

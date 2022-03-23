@@ -15,36 +15,36 @@ const Info = ({ infoOpen, setInfoOpen }) => {
       setModalOpen={setInfoOpen}
       className="text-white"
     >
-      <div className="column px-2">
-        <h2 className="text-xl font-bold font-mono py-2">How to Play</h2>
-        <div className="pb-2">
+      <div className="column px-2 text-sm">
+        <h2 className="text-lg font-bold font-mono">How to Play</h2>
+        <p>
           Given criteria of a random word length and random letters in random
           positions - guess as many valid words that fit the given criteria.
-        </div>
+        </p>
         <Divider />
-        <div className="pb-2">
+        <p>
           Hit Enter on the keyboard or the button to the right of the input to
           check/enter the word.
-        </div>
+        </p>
         <Divider />
-        <div className="wrap">
+        <p className="">
           The tile highlighted in
-          <div className="text-green-500 font-bold px-1">green</div> is where
-          the cursor is currently pointed. The tiles highlighted in{" "}
-          <div className="text-red-500 font-bold px-1">red</div> are the parts
+          <span className="text-green-500 font-bold pl-1">green</span> is where
+          the cursor is currently pointed. The tiles highlighted in
+          <span className="text-red-500 font-bold pl-1">red</span> are the parts
           of the word that are given by the random criteria.
-        </div>
+        </p>
         <div className="info-demo" />
-        <div>
+        <p>
           In this example, the starting cursor position is the first tile. The
           given tiles are two "T" tiles in the third and fifth positions. An
           example of a valid word is "POTATO".
-        </div>
+        </p>
         <Divider />
-        <div className="font-semibold text-lg underline underline-offset-1 row">
+        <p className="font-semibold text-lg underline underline-offset-1 row">
           Enjoy the fun every day!
-        </div>
-        <div className="h-full text-lg- text-semibold mt-8">
+        </p>
+        <p className="h-full text-semibold">
           To contact me with questions, comments, or concerns:
           <a
             href={
@@ -61,7 +61,7 @@ const Info = ({ infoOpen, setInfoOpen }) => {
           >
             pauldavidmiller98@gmail.com
           </a>
-        </div>
+        </p>
       </div>
     </Modal>
   );
