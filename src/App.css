@@ -61,6 +61,15 @@ body {
   @apply bg-blue-700;
 }
 
+.btn-green {
+  @apply btn-default;
+  @apply bg-green-500 text-white;
+}
+
+.btn-green:hover {
+  @apply bg-green-700;
+}
+
 .btn-settings {
   @apply btn;
   @apply w-12 h-12;

@@ -1,10 +1,32 @@
+import { faShare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import classnames from "tailwindcss-classnames";
+import { getCurrentDateTime } from "../bff/utilities";
 
 const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
+  const share = async (e) => {
+    e.preventDefault();
+
+    const numWords = Math.round((pctWordsFound * 100) / 10);
+    let word = "";
+    for (let i = 0; i < numWords; i++) {
+      if (i === 5) {
+        word += "\n";
+      }
+      word += "⚪";
+    }
+
+    word = `Wordict - ${getCurrentDateTime()}\n\n${word} ➡️ ${
+      pctWordsFound * 100
+    }%`;
+
+    await navigator.clipboard.writeText(word);
+  };
+
   return (
     <div className={classnames("correct-words", className)}>
-      <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap mb-2">
+      <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap mb-2 mr-4">
         <span className="text-center text-green-500 pr-1">
           {correctWords?.length}
         </span>
@@ -12,6 +34,14 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
         <span className="text-center text-green-500">
           {Math.round(pctWordsFound * 100)}%
         </span>
+        <button
+          type="button"
+          className="btn-green self-center ml-4"
+          onClick={(e) => share(e)}
+        >
+          <span>Share</span>
+          <FontAwesomeIcon icon={faShare} size="xs" className="ml-2" />
+        </button>
       </h1>
       <div className="flex flex-wrap max-h-min">
         {correctWords?.sort().map((correctWord, i) => {

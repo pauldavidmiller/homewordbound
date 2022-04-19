@@ -158,9 +158,9 @@ const Main = () => {
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", () =>
-      setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null))
-    );
+    // document.addEventListener("click", () =>
+    //   setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null))
+    // );
 
     if (!isFocused) {
       setAllFocus(gameData?.dailyParameters?.letters?.indexOf(null));
@@ -184,19 +184,22 @@ const Main = () => {
     gameData?.dailyParameters?.letters,
     isFocused,
     setAllFocus,
-    setFocus,
-    setGameData,
     setStatisticsData,
   ]);
 
   return (
     <div
       className="main-input"
-      onClick={(e) => {
-        setAllFocus(focusPos);
-      }}
+      // onClick={(e) => {
+      //   setAllFocus(focusPos);
+      // }}
     >
-      <div className="parameters">
+      <div
+        className="parameters"
+        onClick={(e) => {
+          setAllFocus(focusPos);
+        }}
+      >
         <div className="column justify-center border-r-2 border-t-2 border-b-2 border-blue-400">
           <ParameterSelector
             title="Word Length"
@@ -273,7 +276,12 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="card-flip h-40">
+      <div
+        className="card-flip h-40"
+        onClick={(e) => {
+          setAllFocus(focusPos);
+        }}
+      >
         <CardFlip
           flipped={inputFlipped}
           frontChildren={<div className="row" />}
