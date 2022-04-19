@@ -17,7 +17,7 @@ body {
 
 .container {
   @apply bg-gray-800;
-  @apply p-5;
+  @apply p-4;
   @apply rounded-lg;
   @apply row self-center justify-center;
 }
@@ -165,18 +165,23 @@ body {
 
 .parameters {
   @apply container;
-  @apply mt-3;
+  @apply mt-2;
 }
 
 .card-flip {
   @apply container;
-  @apply mt-3;
+  @apply mt-2;
 }
 
 .correct-words {
   @apply container;
   @apply column;
-  @apply mt-3;
+  @apply mt-2;
+}
+
+.timer-container {
+  @apply container;
+  @apply absolute bottom-0;
 }
 
 .tile {
@@ -397,4 +402,23 @@ body {
 
 .graph-x-axis-text {
   @apply text-sm text-center pt-6;
+}
+
+/* Countdown Timer */
+.countdown-timer-spinner {
+  @apply bg-transparent border rounded-full border-t-orange-500 h-8 w-8;
+  @apply animate-spin;
+}
+
+.countdown-timer-container {
+  @apply column;
+}
+
+.countdown-timer-countdown {
+  @apply wrap items-center;
+}
+
+.countdown-timer-countdown p {
+  @apply px-2 bg-gray-100 border rounded shadow w-12 h-6;
+  @apply text-center text-base align-middle;
 }

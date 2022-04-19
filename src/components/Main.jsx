@@ -12,6 +12,7 @@ import {
   faLongArrowAltRight,
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
+import CountdownTimer from "./CountdownTimer";
 
 const Input = ({
   name,
@@ -277,7 +278,7 @@ const Main = () => {
       </div>
 
       <div
-        className="card-flip h-40"
+        className="card-flip h-32"
         onClick={(e) => {
           setAllFocus(focusPos);
         }}
@@ -384,6 +385,15 @@ const Main = () => {
           statisticsData[gameData?.dailyParameters?.day]?.pctWordsFound
         }
       />
+
+      <div className="timer-container">
+        <div className="row -m-2">
+          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 font-serif">
+            Next Wordict in
+          </span>
+          <CountdownTimer />
+        </div>
+      </div>
     </div>
   );
 };

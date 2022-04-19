@@ -26,23 +26,25 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
 
   return (
     <div className={classnames("correct-words", className)}>
-      <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap mb-2 mr-4">
-        <span className="text-center text-green-500 pr-1">
-          {correctWords?.length}
-        </span>
-        <span className="text-center pr-1">Found Words -</span>
-        <span className="text-center text-green-500">
-          {Math.round(pctWordsFound * 100)}%
-        </span>
+      <div className="row justify-center">
+        <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap">
+          <span className="text-center text-green-500 pr-1">
+            {correctWords?.length}
+          </span>
+          <span className="text-center pr-1">Found Words -</span>
+          <span className="text-center text-green-500">
+            {Math.round(pctWordsFound * 100)}%
+          </span>
+        </h1>
         <button
           type="button"
-          className="btn-green self-center ml-4"
+          className="btn-green self-center mx-4"
           onClick={(e) => share(e)}
         >
           <span>Share</span>
           <FontAwesomeIcon icon={faShare} size="xs" className="ml-2" />
         </button>
-      </h1>
+      </div>
       <div className="flex flex-wrap max-h-min">
         {correctWords?.sort().map((correctWord, i) => {
           return (
