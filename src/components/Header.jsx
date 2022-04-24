@@ -17,9 +17,9 @@ const Header = ({ setInfoOpen, setProfileOpen }) => {
           <FontAwesomeIcon icon={faInfo} size="lg" />
         </button>
       </div>
-      <header className="text-center text-white font-bold font-serif text-4xl mt-1 w-1/3">
+      <header className="row text-center text-white font-bold font-serif text-2xl mt-2 self-center">
         HomeWordBound
-        <FontAwesomeIcon icon={faHome} size="lg" className="ml-2 pb-2" />
+        <FontAwesomeIcon icon={faHome} size="lg" className="ml-2 pb-1.5" />
       </header>
       <div className="flex flex-row-reverse w-1/3">
         <button
