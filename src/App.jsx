@@ -14,7 +14,7 @@ const debugParameterData = true;
 
 const App = () => {
   // Dictionary is initialized here so that typing the letters is faster and doesn't rerender with Main
-  const [dictionary, setDictionary] = React.useState(getDictionary());
+  const [dictionary] = React.useState(getDictionary());
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [infoOpen, setInfoOpen] = React.useState(false);
 

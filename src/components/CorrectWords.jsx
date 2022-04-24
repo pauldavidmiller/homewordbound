@@ -26,7 +26,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
 
   return (
     <div className={classnames("correct-words", className)}>
-      <div className="row justify-center">
+      <div className="row justify-center pb-1">
         <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap">
           <span className="text-center text-green-500 pr-1">
             {correctWords?.length}

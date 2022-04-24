@@ -371,8 +371,8 @@ const Main = () => {
               <button type="submit" className="btn-blue self-center mt-2">
                 Enter
               </button>
-              <div className="row justify-center pt-2 text-red-600 font-bold">
-                <span className="h-10">{isInvalidWordText}</span>
+              <div className="row justify-center pt-2 text-red-600 font-bold text-xs">
+                {isInvalidWordText}
               </div>
             </form>
           }
@@ -388,7 +388,7 @@ const Main = () => {
 
       <div className="timer-container">
         <div className="row -m-2">
-          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 font-serif">
+          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
             Next Wordict in
           </span>
           <CountdownTimer />

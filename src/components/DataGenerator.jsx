@@ -34,6 +34,7 @@ const DataGenerator = ({
       let randomIndex = -1;
       do {
         randomIndex = getRandomNumber(0, wordLength);
+        // eslint-disable-next-line no-loop-func
       } while (positions.find((index) => index === randomIndex) !== undefined);
 
       positions.push(randomIndex);
@@ -122,6 +123,7 @@ const DataGenerator = ({
         do {
           letters = generateSetOfLetters();
         } while (
+          // eslint-disable-next-line no-loop-func
           parameterData?.find((dataSet) =>
             arraysAreEqual(letters, dataSet.letters)
           ) !== undefined
