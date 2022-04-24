@@ -5,7 +5,7 @@ import Modal from "./Modal";
 const Info = ({ infoOpen, setInfoOpen }) => {
   const emailTo = "pauldavidmiller98@gmail.com";
   const emailCC = "";
-  const emailSub = "HomewordBound";
+  const emailSub = "HomeWordBound";
   const emailBody = "";
 
   return (

@@ -389,7 +389,7 @@ const Main = () => {
       <div className="timer-container">
         <div className="row -m-2">
           <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
-            Next HomewordBound in
+            Next HomeWordBound in
           </span>
           <CountdownTimer />
         </div>
