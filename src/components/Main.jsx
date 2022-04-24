@@ -8,10 +8,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { getDailyParameterData } from "../data/data";
 import classnames from "tailwindcss-classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLongArrowAltRight,
-  faQuestion,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import CountdownTimer from "./CountdownTimer";
 
 const Input = ({
@@ -246,11 +243,7 @@ const Main = () => {
           <CardFlip
             flipped={revealedParametersFlipped}
             frontChildren={
-              <FontAwesomeIcon
-                icon={faQuestion}
-                size="7x"
-                className="text-white"
-              />
+              <FontAwesomeIcon icon={faHome} size="7x" className="text-white" />
             }
             backChildren={
               <div className="column justify-center">

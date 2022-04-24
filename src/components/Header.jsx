@@ -1,5 +1,5 @@
 import React from "react";
-import { faInfo, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faInfo, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = ({ setInfoOpen, setProfileOpen }) => {
@@ -19,6 +19,7 @@ const Header = ({ setInfoOpen, setProfileOpen }) => {
       </div>
       <header className="text-center text-white font-bold font-serif text-4xl mt-1 w-1/3">
         HomeWordBound
+        <FontAwesomeIcon icon={faHome} size="lg" className="ml-2 pb-2" />
       </header>
       <div className="flex flex-row-reverse w-1/3">
         <button
