@@ -43,12 +43,12 @@ const Input = ({
 };
 
 const Main = () => {
-  const [gameData, setGameData] = useLocalStorage("wordict-state", {
+  const [gameData, setGameData] = useLocalStorage("homewordbound-state", {
     dailyParameters: getDailyParameterData(),
     correctWords: [],
   });
   const [statisticsData, setStatisticsData] = useLocalStorage(
-    "wordict-statistics",
+    "homewordbound-statistics",
     {
       [gameData?.dailyParameters?.day]: {
         pctWordsFound:
@@ -389,7 +389,7 @@ const Main = () => {
       <div className="timer-container">
         <div className="row -m-2">
           <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
-            Next Wordict in
+            Next HomewordBound in
           </span>
           <CountdownTimer />
         </div>

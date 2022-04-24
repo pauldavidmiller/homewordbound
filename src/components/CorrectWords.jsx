@@ -17,7 +17,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
       word += "⚪";
     }
 
-    word = `Wordict - ${getCurrentDateTime()}\n\n${word} ➡️ ${
+    word = `HomewordBound - ${getCurrentDateTime()}\n\n${word} ➡️ ${
       pctWordsFound * 100
     }%`;
 

@@ -8,7 +8,7 @@ function getStorageValue(key, defaultValue) {
     const parsedSaved = JSON.parse(saved);
 
     if (
-      key === "wordict-state" &&
+      key === "homewordbound-state" &&
       (parsedSaved?.dailyParameters?.day === undefined ||
         getCurrentDateTime(parsedSaved.dailyParameters.day) !==
           getCurrentDateTime())

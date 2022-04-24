@@ -4,9 +4,9 @@ import Modal from "./Modal";
 
 const Profile = ({ profileOpen, setProfileOpen }) => {
   // Use graph to show distribution of what percentage of words
-  // was found everyday --> localStorage.get("wordict-statistics")
+  // was found everyday --> localStorage.get("homewordbound-statistics")
   const statisticsData = JSON.parse(
-    localStorage.getItem("wordict-statistics") ?? "{}"
+    localStorage.getItem("homewordbound-statistics") ?? "{}"
   );
 
   return (
