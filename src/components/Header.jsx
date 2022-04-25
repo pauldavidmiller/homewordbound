@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header = ({ setInfoOpen, setProfileOpen }) => {
   return (
     <div className="header row">
-      <div className="flex flex-row w-1/3">
+      <div className="flex flex-row w-1/6">
         <button
           type="button"
           className="btn-settings mx-2"
@@ -17,11 +17,11 @@ const Header = ({ setInfoOpen, setProfileOpen }) => {
           <FontAwesomeIcon icon={faInfo} size="lg" />
         </button>
       </div>
-      <header className="row text-center text-white font-bold font-serif text-2xl mt-2 self-center">
-        HomeWordBound
+      <header className="row text-center text-white font-bold font-serif text-2xl mt-2 justify-center items-center w-2/3">
+        <span>HomeWordBound</span>
         <FontAwesomeIcon icon={faHome} size="lg" className="ml-2 pb-1.5" />
       </header>
-      <div className="flex flex-row-reverse w-1/3">
+      <div className="flex flex-row-reverse w-1/6">
         <button
           type="button"
           className="btn-profile mx-2"
