@@ -1,4 +1,5 @@
 import React from "react";
+import CountdownTimer from "./CountdownTimer";
 import Divider from "./Divider";
 import Modal from "./Modal";
 
@@ -27,7 +28,7 @@ const Info = ({ infoOpen, setInfoOpen }) => {
           check/enter the word.
         </p>
         <Divider />
-        <p className="">
+        <p>
           The tile highlighted in
           <span className="text-green-500 font-bold pl-1">green</span> is where
           the cursor is currently pointed. The tiles highlighted in
@@ -44,7 +45,7 @@ const Info = ({ infoOpen, setInfoOpen }) => {
         <p className="font-semibold text-lg underline underline-offset-1 row">
           Enjoy the fun every day!
         </p>
-        <p className="h-full text-semibold">
+        <p className="text-semibold">
           To contact me with questions, comments, or concerns:
           <a
             href={
@@ -62,6 +63,14 @@ const Info = ({ infoOpen, setInfoOpen }) => {
             pauldavidmiller98@gmail.com
           </a>
         </p>
+        <div className="timer-container">
+          <div className="row -m-2">
+            <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
+              Next game in
+            </span>
+            <CountdownTimer />
+          </div>
+        </div>
       </div>
     </Modal>
   );

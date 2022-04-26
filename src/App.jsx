@@ -23,6 +23,15 @@ const App = () => {
       <Info infoOpen={infoOpen} setInfoOpen={setInfoOpen} />
       <Profile profileOpen={profileOpen} setProfileOpen={setProfileOpen} />
       <Header setInfoOpen={setInfoOpen} setProfileOpen={setProfileOpen} />
+
+      {/* <div className="timer-container">
+        <div className="row -m-2">
+          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
+            Next game in
+          </span>
+          <CountdownTimer />
+        </div>
+      </div> */}
       <Main />
       {createParameterData && (
         <DataGenerator

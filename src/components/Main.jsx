@@ -9,7 +9,6 @@ import { getDailyParameterData } from "../data/data";
 import classnames from "tailwindcss-classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-import CountdownTimer from "./CountdownTimer";
 
 const Input = ({
   name,
@@ -235,11 +234,11 @@ const Main = () => {
 
         <FontAwesomeIcon
           icon={faLongArrowAltRight}
-          size="3x"
-          className="self-center text-blue-400 -pl-0.5"
+          size="2x"
+          className="self-center text-blue-400 -pl-0.5 pr-1"
         />
 
-        <div className="column justify-center w-60 whitespace-nowrap">
+        <div className="column justify-center w-48 whitespace-nowrap">
           <CardFlip
             flipped={revealedParametersFlipped}
             frontChildren={
@@ -378,15 +377,6 @@ const Main = () => {
           statisticsData[gameData?.dailyParameters?.day]?.pctWordsFound
         }
       />
-
-      <div className="timer-container">
-        <div className="row -m-2">
-          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
-            Next HomeWordBound in
-          </span>
-          <CountdownTimer />
-        </div>
-      </div>
     </div>
   );
 };

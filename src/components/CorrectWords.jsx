@@ -27,7 +27,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
   return (
     <div className={classnames("correct-words", className)}>
       <div className="row justify-center pb-1">
-        <h1 className="text-lg font-bold text-gray-200 text-center whitespace-nowrap">
+        <h1 className="text-base font-bold text-gray-200 text-center whitespace-nowrap">
           <span className="text-center text-green-500 pr-1">
             {correctWords?.length}
           </span>
@@ -38,10 +38,10 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
         </h1>
         <button
           type="button"
-          className="btn-green self-center mx-4"
+          className="btn-green self-center mx-2"
           onClick={(e) => share(e)}
         >
-          <span>Share</span>
+          <span className="text-sm">Share</span>
           <FontAwesomeIcon icon={faShare} size="xs" className="ml-2" />
         </button>
       </div>

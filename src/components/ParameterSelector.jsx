@@ -4,7 +4,7 @@ import classnames from "tailwindcss-classnames";
 const ParameterSelector = ({ title, imageClassName, className, children }) => {
   return (
     <div className="column p-3">
-      <h1 className="text-white whitespace-nowrap font-semibold text-lg text-center pb-1">
+      <h1 className="text-white whitespace-nowrap font-semibold text-base text-center pb-1">
         {title}
       </h1>
       {imageClassName && (

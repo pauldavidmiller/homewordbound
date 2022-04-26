@@ -26,6 +26,10 @@ body {
   @apply flex flex-row;
 }
 
+.row-reverse {
+  @apply flex flex-row-reverse;
+}
+
 .column {
   @apply flex flex-col;
 }
@@ -41,6 +45,7 @@ body {
 }
 
 .btn {
+  @apply text-sm;
 }
 
 .btn:hover {
@@ -49,7 +54,7 @@ body {
 
 .btn-default {
   @apply btn;
-  @apply font-bold py-1 px-4 rounded;
+  @apply font-bold py-0.5 px-3 rounded;
 }
 
 .btn-blue {
@@ -87,7 +92,7 @@ body {
 }
 
 .settings {
-  @apply text-base text-black;
+  @apply text-sm text-black;
   @apply row whitespace-nowrap overflow-hidden;
   @apply pb-1 px-1 max-w-max;
   @apply mx-5;
@@ -106,7 +111,7 @@ body {
 }
 
 .search-select {
-  @apply text-base font-sans font-semibold tracking-normal text-gray-900;
+  @apply text-sm font-sans font-semibold tracking-normal text-gray-900;
   @apply row max-w-max whitespace-nowrap overflow-hidden;
   @apply px-2 py-1 mt-1;
   @apply rounded-xl;
@@ -127,10 +132,9 @@ body {
 
 .modal {
   @apply z-50;
-  @apply fixed bg-gray-900 h-full w-full justify-center;
+  @apply fixed bg-gray-900 h-full w-full column justify-center;
   @apply font-sans;
   @apply rounded;
-  @apply p-3;
   /* 
   & fieldset {
     @apply p-1;
@@ -180,8 +184,10 @@ body {
 }
 
 .timer-container {
-  @apply container;
-  @apply absolute bottom-0;
+  @apply bg-gray-800;
+  @apply w-full px-5 py-2 my-0.5;
+  @apply rounded-lg;
+  @apply row self-center justify-center;
 }
 
 .tile {
@@ -207,7 +213,7 @@ body {
 .info-demo {
   background-image: url("images/infodemo.png");
   @apply bg-no-repeat;
-  @apply w-full h-16;
+  @apply w-full h-10;
 }
 
 /* Dice */
@@ -338,14 +344,14 @@ body {
 
 /* Bar Chart */
 .graph-wrapper {
-  @apply my-2 pt-2 pb-8;
+  @apply my-2 py-1;
   @apply border border-gray-600 rounded-md;
   @apply text-gray-50;
   @apply column place-items-center w-full;
 }
 
 .graph-title {
-  @apply text-center font-bold text-base;
+  @apply text-center font-bold text-sm;
   @apply pb-2;
 }
 
@@ -361,14 +367,14 @@ body {
 }
 
 .bar-text-content {
-  @apply text-sm pt-0.5;
+  @apply text-xs pt-0.5;
   @apply min-w-max;
   @apply h-full;
   width: 12%;
 }
 
 .bar-text {
-  @apply pt-1 px-2;
+  @apply pt-1.5 px-2;
   @apply text-right min-w-max;
   @apply w-full;
 }
@@ -401,12 +407,12 @@ body {
 }
 
 .graph-x-axis-text {
-  @apply text-sm text-center pt-6;
+  @apply text-xs text-center pt-6;
 }
 
 /* Countdown Timer */
 .countdown-timer-spinner {
-  @apply bg-transparent border rounded-full border-t-orange-500 h-8 w-8;
+  @apply bg-transparent border rounded-full border-t-orange-500 h-6 w-6;
   @apply animate-spin;
 }
 
@@ -419,6 +425,6 @@ body {
 }
 
 .countdown-timer-countdown p {
-  @apply px-2 bg-gray-100 border rounded shadow w-12 h-6;
-  @apply text-center text-base align-middle;
+  @apply px-2 bg-gray-100 border rounded shadow w-10 h-5;
+  @apply text-center text-sm align-middle;
 }
