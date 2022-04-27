@@ -15,23 +15,16 @@ const debugParameterData = true;
 const App = () => {
   // Dictionary is initialized here so that typing the letters is faster and doesn't rerender with Main
   const [dictionary] = React.useState(getDictionary());
-  const [profileOpen, setProfileOpen] = React.useState(false);
   const [infoOpen, setInfoOpen] = React.useState(false);
+  const [profileOpen, setProfileOpen] = React.useState(false);
 
   return (
     <div className="app">
+      {/* Modals */}
       <Info infoOpen={infoOpen} setInfoOpen={setInfoOpen} />
       <Profile profileOpen={profileOpen} setProfileOpen={setProfileOpen} />
-      <Header setInfoOpen={setInfoOpen} setProfileOpen={setProfileOpen} />
 
-      {/* <div className="timer-container">
-        <div className="row -m-2">
-          <span className="text-white font-bold text-center whitespace-nowrap self-center pr-2 pt-1 font-serif">
-            Next game in
-          </span>
-          <CountdownTimer />
-        </div>
-      </div> */}
+      <Header setInfoOpen={setInfoOpen} setProfileOpen={setProfileOpen} />
       <Main />
       {createParameterData && (
         <DataGenerator

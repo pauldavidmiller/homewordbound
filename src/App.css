@@ -126,7 +126,7 @@ body {
 
 .search-dropdown-list-item {
   @apply dropdown-list-item text-left;
-  @apply text-sm text-gray-200 border border-gray-400 rounded-2xl;
+  @apply text-sm border rounded-2xl;
   @apply px-3 m-1 h-6;
 }
 
@@ -193,8 +193,8 @@ body {
 .tile {
   background-image: url("images/tile.jpg");
   @apply bg-no-repeat;
-  @apply w-12 h-12;
-  @apply text-center font-bold text-3xl pt-2 text-black;
+  @apply w-10 h-10;
+  @apply text-center font-bold text-3xl pt-0.5 text-black;
   @apply self-center;
 }
 

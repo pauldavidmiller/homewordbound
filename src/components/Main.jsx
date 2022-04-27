@@ -16,7 +16,7 @@ const Input = ({
   onKeyDown,
   register,
   index,
-  disabled,
+  readOnly,
   className,
 }) => {
   const value = useWatch({
@@ -27,7 +27,7 @@ const Input = ({
   return (
     <input
       {...register(`letterInputs.${index}.letter`)}
-      disabled={disabled}
+      readOnly={readOnly}
       className={className}
       maxLength={1}
       value={value?.toUpperCase() ?? ""}
@@ -283,17 +283,19 @@ const Main = () => {
               <div className="row self-center">
                 {fields.map((item, index) => {
                   return (
-                    <div className="px-1" key={item.id}>
+                    <div className="px-0.5" key={item.id}>
                       <Input
                         register={register}
                         control={control}
                         index={index}
                         name={`letterInputs.${index}.letter`}
                         className={classnames(
-                          item.letter !== null ? "border-2 border-red-500" : "",
-                          "tile pb-2 outline-2 outline-green-500 shadow-green-700 caret-transparent"
+                          item.letter !== null
+                            ? "border-2 border-red-500 cursor-default"
+                            : "",
+                          "tile outline-2 outline-green-500 shadow-green-700 caret-transparent"
                         )}
-                        disabled={item.letter !== null ? true : false}
+                        readOnly={item.letter !== null ? true : false}
                         onKeyDown={(e) => {
                           if (e.keyCode === 13) {
                             // Don't prevent default

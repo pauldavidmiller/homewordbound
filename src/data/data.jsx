@@ -1,4 +1,10 @@
-import { getCurrentDateTime } from "../bff/utilities";
+import { addDays, getCurrentDateTime } from "../bff/utilities";
+
+export const getPreviousParameterData = () => {
+  return dailyParameterData?.find(
+    (x) => x.day === addDays(getCurrentDateTime(), -1)
+  );
+};
 
 export const getDailyParameterData = () => {
   return dailyParameterData?.find((x) => x.day === getCurrentDateTime());
