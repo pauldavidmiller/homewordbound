@@ -7,11 +7,21 @@ function getStorageValue(key, defaultValue) {
   if (saved !== null) {
     const parsedSaved = JSON.parse(saved);
 
+    // Reset daily state if new / different day
     if (
       key === "homewordbound-state" &&
       (parsedSaved?.dailyParameters?.day === undefined ||
         getCurrentDateTime(parsedSaved.dailyParameters.day) !==
           getCurrentDateTime())
+    ) {
+      return defaultValue;
+    }
+
+    // Reset previous words if new / different day
+    if (
+      key === "homewordbound-previouswords" &&
+      (parsedSaved?.day === undefined ||
+        getCurrentDateTime(parsedSaved.day) !== getCurrentDateTime())
     ) {
       return defaultValue;
     }
