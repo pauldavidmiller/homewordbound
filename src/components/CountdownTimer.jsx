@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "tailwindcss-classnames";
 import { addDays, getCurrentDateTime } from "../bff/utilities";
+import useInterval from "../hooks/useInterval";
 
 const CountdownTimer = ({ className }) => {
   const [hours, setHours] = React.useState(10);
@@ -8,34 +9,32 @@ const CountdownTimer = ({ className }) => {
   const [seconds, setSeconds] = React.useState(10);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    const countdown = () => {
-      const endDate = new Date(addDays(getCurrentDateTime(), 1));
-      const today = new Date();
+  const countdown = () => {
+    const endDate = new Date(addDays(getCurrentDateTime(), 1));
+    const today = new Date();
 
-      const timeDiff = endDate.getTime() - today.getTime();
+    const timeDiff = endDate.getTime() - today.getTime();
 
-      const seconds = 1000;
-      const minutes = seconds * 60;
-      const hours = minutes * 60;
-      const days = hours * 24;
+    const seconds = 1000;
+    const minutes = seconds * 60;
+    const hours = minutes * 60;
+    const days = hours * 24;
 
-      let timeHours = Math.floor((timeDiff % days) / hours);
-      let timeMinutes = Math.floor((timeDiff % hours) / minutes);
-      let timeSeconds = Math.floor((timeDiff % minutes) / seconds);
+    let timeHours = Math.floor((timeDiff % days) / hours);
+    let timeMinutes = Math.floor((timeDiff % hours) / minutes);
+    let timeSeconds = Math.floor((timeDiff % minutes) / seconds);
 
-      timeHours = timeHours < 10 ? "0" + timeHours : timeHours;
-      timeMinutes = timeMinutes < 10 ? "0" + timeMinutes : timeMinutes;
-      timeSeconds = timeSeconds < 10 ? "0" + timeSeconds : timeSeconds;
+    timeHours = timeHours < 10 ? "0" + timeHours : timeHours;
+    timeMinutes = timeMinutes < 10 ? "0" + timeMinutes : timeMinutes;
+    timeSeconds = timeSeconds < 10 ? "0" + timeSeconds : timeSeconds;
 
-      setHours(timeHours);
-      setMinutes(timeMinutes);
-      setSeconds(timeSeconds);
-      setIsLoading(false);
-    };
+    setHours(timeHours);
+    setMinutes(timeMinutes);
+    setSeconds(timeSeconds);
+    setIsLoading(false);
+  };
 
-    setInterval(countdown, 1000);
-  }, []);
+  useInterval(countdown, 500);
 
   return (
     <div

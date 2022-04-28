@@ -45,7 +45,9 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
           <span className="text-center text-green-500 pr-1">
             {correctWords?.length}
           </span>
-          <span className="text-center pr-1">Found Words -</span>
+          <span className="text-center pr-1">
+            Word{correctWords?.length !== 1 ? "s" : ""} Found -
+          </span>
           <span className="text-center text-green-500">
             {Math.round(pctWordsFound * 100)}%
           </span>
@@ -55,17 +57,17 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
           className="btn-green self-center "
           onClick={(e) => share(e)}
         >
-          <FontAwesomeIcon icon={faShare} size="md" />
+          <FontAwesomeIcon icon={faShare} size="lg" />
         </button>
         <button
           type="button"
           className="btn-blue self-center"
           onClick={(e) => setPreviousWordsOpen((x) => !x)}
         >
-          <FontAwesomeIcon icon={faCalendarMinus} size="md" />
+          <FontAwesomeIcon icon={faCalendarMinus} size="lg" />
           <FontAwesomeIcon
             icon={previousWordsOpen ? faCaretUp : faCaretDown}
-            size="md"
+            size="lg"
             className="ml-2"
           />
         </button>
@@ -73,7 +75,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
 
       {previousWordsOpen ? (
         <div className="column self-center">
-          <div className="text-base text-center text-blue-400 font-semibold underline">
+          <div className="text-base text-center text-blue-400 font-bold underline">
             {previousParameters.day + " Game Recap"}
           </div>
           <div className="row self-center gap-1">
@@ -112,7 +114,7 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
             return (
               <div
                 key={i}
-                className="search-dropdown-list-item text-gray-200 border-gray-400"
+                className="search-dropdown-list-item text-gray-200 border-emerald-500"
               >
                 {correctWord}
               </div>

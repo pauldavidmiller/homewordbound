@@ -251,10 +251,15 @@ const Main = () => {
                   ?.map((letter, index) => {
                     return (
                       <div className="row justify-center py-1" key={index}>
-                        <div className="tile">{letter?.toUpperCase()}</div>
+                        <div className="tile border-2 border-red-500 cursor-default">
+                          {letter?.toUpperCase()}
+                        </div>
                         <div className="row text-center text-md pl-2 self-center">
-                          <span>in Position</span>
-                          <span className="pl-2">
+                          <span>in</span>
+                          <span className="text-rose-500 font-bold pl-1">
+                            Position
+                          </span>
+                          <span className="text-rose-500 font-bold pl-1">
                             {+gameData?.dailyParameters?.letters?.indexOf(
                               letter
                             ) + +1}
