@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import classnames from "tailwindcss-classnames";
-import { getCurrentDateTime } from "../bff/utilities";
+import { getCurrentDateTime, openDictionariesNewTab } from "../bff/utilities";
 import { getPreviousParameterData } from "../data/data";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
@@ -105,6 +105,10 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
                 <div
                   key={i}
                   className="search-dropdown-list-item text-amber-500 border-amber-500"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openDictionariesNewTab(word);
+                  }}
                 >
                   {word}
                 </div>
@@ -119,6 +123,10 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
               <div
                 key={i}
                 className="search-dropdown-list-item text-gray-200 border-emerald-500"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openDictionariesNewTab(correctWord);
+                }}
               >
                 {correctWord}
               </div>
