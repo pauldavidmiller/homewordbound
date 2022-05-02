@@ -26,3 +26,24 @@ export const arraysAreEqual = (array1, array2) => {
 
   return false;
 };
+
+export const openDataNewTab = (data) => {
+  var tab = window.open("about:blank", "_blank");
+  tab.document.write(JSON.stringify(data));
+  tab.document.close();
+};
+
+export const openDictionariesNewTab = (word) => {
+  const newWindow1 = window.open(
+    `https://www.dictionary.com/browse/${word}`,
+    "_blank",
+    "noopener, noreferrer"
+  );
+  if (newWindow1) newWindow1.opener = null;
+  const newWindow2 = window.open(
+    `https://www.merriam-webster.com/dictionary/${word}`,
+    "_blank",
+    "noopener, noreferrer"
+  );
+  if (newWindow2) newWindow2.opener = null;
+};

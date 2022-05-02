@@ -75,6 +75,15 @@ body {
   @apply bg-green-700;
 }
 
+.btn-red {
+  @apply btn-default;
+  @apply bg-red-500 text-white;
+}
+
+.btn-red:hover {
+  @apply bg-red-700;
+}
+
 .btn-settings {
   @apply btn;
   @apply w-12 h-12;
@@ -178,6 +187,18 @@ body {
 }
 
 .correct-words {
+  @apply container;
+  @apply column;
+  @apply mt-2;
+}
+
+.data-generator {
+  @apply container;
+  @apply column;
+  @apply mt-2;
+}
+
+.word-validator {
   @apply container;
   @apply column;
   @apply mt-2;

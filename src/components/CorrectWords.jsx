@@ -84,12 +84,16 @@ const CorrectWords = ({ correctWords, pctWordsFound, className }) => {
               return (
                 <div
                   key={i}
-                  className="text-base text-amber-400 border-amber-400"
+                  className="text-base text-amber-400 border-amber-400 font-semibold"
                 >
                   {letter !== null ? (
-                    letter
+                    letter.toUpperCase()
                   ) : (
-                    <FontAwesomeIcon icon={faQuestion} size="sm" />
+                    <FontAwesomeIcon
+                      icon={faQuestion}
+                      size="sm"
+                      className="pb-0.5"
+                    />
                   )}
                 </div>
               );

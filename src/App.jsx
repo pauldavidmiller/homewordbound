@@ -7,6 +7,7 @@ import Info from "./components/Info.jsx";
 import { getCombinedDictionary } from "./data/final_combined_dictionary.jsx";
 
 import "./App.css";
+import WordValidator from "./components/WordValidator.jsx";
 
 const createParameterData = false;
 const numDaysParameterData = 2000;
@@ -27,11 +28,14 @@ const App = () => {
       <Header setInfoOpen={setInfoOpen} setProfileOpen={setProfileOpen} />
       <Main />
       {createParameterData && (
-        <DataGenerator
-          numDaysParameterData={numDaysParameterData}
-          dictionary={dictionary}
-          debugParameterData={debugParameterData}
-        />
+        <div className="main-input">
+          <DataGenerator
+            numDaysParameterData={numDaysParameterData}
+            dictionary={dictionary}
+            debugParameterData={debugParameterData}
+          />
+          <WordValidator />
+        </div>
       )}
     </div>
   );

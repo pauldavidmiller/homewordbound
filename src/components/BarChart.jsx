@@ -49,7 +49,6 @@ const BarChart = ({ title, statistics }) => {
           dataIndex = 11;
         }
 
-        // console.log(data[dataIndex].value);
         let tempData = data;
         tempData[dataIndex].value = tempData[dataIndex].value + 1;
         setData(tempData);

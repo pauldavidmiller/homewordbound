@@ -4,6 +4,7 @@ import {
   arraysAreEqual,
   getCurrentDateTime,
   getRandomNumber,
+  openDataNewTab,
 } from "../bff/utilities.js";
 
 const DataGenerator = ({
@@ -149,33 +150,36 @@ const DataGenerator = ({
       console.log(parameterData);
     }
 
-    var tab = window.open("about:blank", "_blank");
-    tab.document.write(JSON.stringify(parameterData));
-    tab.document.close();
+    openDataNewTab(parameterData);
   };
 
   return (
-    <div className="p-2">
-      <button
-        type="button"
-        className="btn-blue justify-center h-10 max-w-max mx-4"
-        onClick={(e) => {
-          e.preventDefault();
-          localStorage.clear();
-        }}
-      >
-        Clear Storage
-      </button>
-      <button
-        type="button"
-        className="btn-blue justify-center h-10 max-w-max mx-4"
-        onClick={(e) => {
-          e.preventDefault();
-          generateValidSetsOfParameters(numDaysParameterData);
-        }}
-      >
-        Generate All Data
-      </button>
+    <div className="data-generator">
+      <div className="text-center text-white font-bold text-lg">
+        Developer Console
+      </div>
+      <div className="row justify-center">
+        <button
+          type="button"
+          className="btn-green justify-center h-10 max-w-max mx-4"
+          onClick={(e) => {
+            e.preventDefault();
+            generateValidSetsOfParameters(numDaysParameterData);
+          }}
+        >
+          Generate All Data
+        </button>
+        <button
+          type="button"
+          className="btn-red justify-center h-10 max-w-max mx-4"
+          onClick={(e) => {
+            e.preventDefault();
+            localStorage.clear();
+          }}
+        >
+          Clear Storage
+        </button>
+      </div>
     </div>
   );
 };

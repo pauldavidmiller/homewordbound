@@ -10,6 +10,13 @@ export const getDailyParameterData = () => {
   return dailyParameterData?.find((x) => x.day === getCurrentDateTime());
 };
 
+export const getWeekParameterData = () => {
+  const firstIndex = dailyParameterData?.findIndex(
+    (x) => x.day === addDays(getCurrentDateTime(), 1)
+  );
+  return dailyParameterData?.slice(firstIndex, firstIndex + 7);
+};
+
 const dailyParameterData = [
   {
     day: "4/30/2022",
@@ -89,7 +96,6 @@ const dailyParameterData = [
       "acari",
       "acerb",
       "acorn",
-      "ochro",
       "scare",
       "scarf",
       "scarn",
@@ -105,17 +111,7 @@ const dailyParameterData = [
   {
     day: "5/5/2022",
     letters: [null, "m", "y", null, null, null],
-    allWords: [
-      "amylan",
-      "amylic",
-      "amylin",
-      "amylom",
-      "amylon",
-      "amylum",
-      "amyous",
-      "amyrin",
-      "amyrol",
-    ],
+    allWords: ["amylic", "amylin", "amylum", "amyous", "amyrin"],
   },
   {
     day: "5/6/2022",
@@ -123,7 +119,6 @@ const dailyParameterData = [
     allWords: [
       "glad",
       "glam",
-      "glar",
       "glee",
       "gleg",
       "glen",
@@ -131,7 +126,6 @@ const dailyParameterData = [
       "glib",
       "glom",
       "glop",
-      "glor",
       "glow",
       "gloy",
       "glub",
@@ -148,7 +142,6 @@ const dailyParameterData = [
       "arc",
       "bac",
       "doc",
-      "hic",
       "lac",
       "mac",
       "orc",
@@ -161,7 +154,6 @@ const dailyParameterData = [
       "soc",
       "tec",
       "tic",
-      "zac",
       "rec",
     ],
   },
@@ -174,16 +166,13 @@ const dailyParameterData = [
       "manna",
       "manny",
       "maund",
-      "maynt",
       "meant",
       "mesne",
       "minny",
-      "monny",
       "moony",
       "morne",
       "mound",
       "mount",
-      "muang",
       "means",
       "moans",
       "moons",
