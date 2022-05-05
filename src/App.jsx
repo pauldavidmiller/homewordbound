@@ -9,7 +9,7 @@ import { getCombinedDictionary } from "./data/final_combined_dictionary.jsx";
 import "./App.css";
 import WordValidator from "./components/WordValidator.jsx";
 
-const createParameterData = true;
+const createParameterData = false;
 const numDaysParameterData = 2000;
 const debugParameterData = true;
 
