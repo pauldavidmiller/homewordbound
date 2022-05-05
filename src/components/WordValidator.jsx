@@ -1,7 +1,7 @@
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { openDataNewTab, openDictionariesNewTab } from "../bff/utilities";
+import { openDataNewTab, openDictionaryNewTab } from "../bff/utilities";
 import { getWeekParameterData } from "../data/data";
 
 const WordValidator = () => {
@@ -18,7 +18,16 @@ const WordValidator = () => {
         {weekParameterData?.map((dayData, indexx) => {
           return (
             <div className="column w-full mx-1" key={indexx}>
-              <div className="text-base text-center text-blue-400 font-bold underline">
+              <div
+                className="text-base text-center text-blue-400 font-bold underline cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  for (let i = 0; i < dayData?.allWords.length; i++) {
+                    const word = dayData?.allWords[i];
+                    openDictionaryNewTab(word);
+                  }
+                }}
+              >
                 {dayData?.day}
               </div>
               {dayData?.allWords.map((word, indexy) => {
@@ -33,7 +42,7 @@ const WordValidator = () => {
                       onClick={(e) => {
                         e.preventDefault();
 
-                        openDictionariesNewTab(word);
+                        openDictionaryNewTab(word);
                       }}
                     >
                       {word}

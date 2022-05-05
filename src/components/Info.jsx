@@ -20,7 +20,8 @@ const Info = ({ infoOpen, setInfoOpen }) => {
         <h2 className="text-lg font-bold font-mono">How to Play</h2>
         <p>
           Given criteria of a random word length and random letters in random
-          positions - guess as many valid words that fit the given criteria.
+          positions - guess as many valid words that fit the given criteria!
+          These words must all belong to the scrabble dictionary.
         </p>
         <Divider />
         <p>

@@ -33,17 +33,11 @@ export const openDataNewTab = (data) => {
   tab.document.close();
 };
 
-export const openDictionariesNewTab = (word) => {
-  const newWindow1 = window.open(
-    `https://www.dictionary.com/browse/${word}`,
+export const openDictionaryNewTab = (word) => {
+  const newWindow = window.open(
+    `https://scrabble.merriam.com/finder/${word}`,
     "_blank",
     "noopener, noreferrer"
   );
-  if (newWindow1) newWindow1.opener = null;
-  const newWindow2 = window.open(
-    `https://www.merriam-webster.com/dictionary/${word}`,
-    "_blank",
-    "noopener, noreferrer"
-  );
-  if (newWindow2) newWindow2.opener = null;
+  if (newWindow) newWindow.opener = null;
 };
