@@ -181,11 +181,6 @@ body {
   @apply mt-2;
 }
 
-.card-flip {
-  @apply container;
-  @apply mt-2;
-}
-
 .correct-words {
   @apply container;
   @apply column;

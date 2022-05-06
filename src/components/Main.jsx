@@ -1,42 +1,12 @@
 import React from "react";
-import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import useInterval from "../hooks/useInterval";
-import ParameterSelector from "./ParameterSelector";
 import CorrectWords from "./CorrectWords";
-import CardFlip from "./CardFlip";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { getDailyParameterData } from "../data/data";
-import classnames from "tailwindcss-classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-
-const Input = ({
-  name,
-  control,
-  onKeyDown,
-  register,
-  index,
-  readOnly,
-  className,
-}) => {
-  const value = useWatch({
-    control,
-    name,
-  });
-
-  return (
-    <input
-      {...register(`letterInputs.${index}.letter`)}
-      readOnly={readOnly}
-      className={className}
-      maxLength={1}
-      value={value?.toUpperCase() ?? ""}
-      onKeyDown={onKeyDown}
-      autoComplete={"off"}
-      autoCapitalize={"on"}
-    />
-  );
-};
+import Parameters from "./Parameters";
+import WordInput from "./WordInput";
+import CardFlip from "./CardFlip";
 
 const Main = () => {
   const [gameData, setGameData] = useLocalStorage("homewordbound-state", {
@@ -67,9 +37,6 @@ const Main = () => {
     if (isFocused) {
       setWordLengthFlipped(true);
     }
-  }, 1000);
-
-  useInterval(() => {
     if (wordLengthFlipped) {
       setNumTilesFlipped(true);
     }
@@ -79,7 +46,7 @@ const Main = () => {
     if (revealedParametersFlipped) {
       setInputFlipped(true);
     }
-  }, 2000);
+  }, 3000);
 
   useInterval(() => {
     if (isInvalidWordText !== "") {
@@ -185,198 +152,35 @@ const Main = () => {
   ]);
 
   return (
-    <div
-      className="main-input"
-      // onClick={(e) => {
-      //   setAllFocus(focusPos);
-      // }}
-    >
-      <div
-        className="parameters"
-        onClick={(e) => {
-          setAllFocus(focusPos);
-        }}
-      >
-        <div className="column justify-center border-r-2 border-t-2 border-b-2 border-blue-400">
-          <ParameterSelector
-            title="Word Length"
-            className="pt-5 pl-5 pr-8 pb-5"
-          >
-            <CardFlip
-              flipped={wordLengthFlipped}
-              frontChildren={<div className="tile">ℓ</div>}
-              backChildren={
-                <div className="tile">
-                  {gameData?.dailyParameters?.letters?.length}
-                </div>
-              }
-            />
-          </ParameterSelector>
-          <ParameterSelector
-            title="# Tiles Given"
-            className="pt-5 pl-5 pr-8 pb-5"
-          >
-            <CardFlip
-              flipped={numTilesFlipped}
-              frontChildren={<div className="tile">#</div>}
-              backChildren={
-                <div className="tile">
-                  {
-                    gameData?.dailyParameters?.letters?.filter(
-                      (letter) => letter !== null
-                    )?.length
-                  }
-                </div>
-              }
-            />
-          </ParameterSelector>
-        </div>
-
-        <FontAwesomeIcon
-          icon={faLongArrowAltRight}
-          size="2x"
-          className="self-center text-blue-400 -pl-0.5 pr-1"
-        />
-
-        <div className="column justify-center w-48 whitespace-nowrap">
-          <CardFlip
-            flipped={revealedParametersFlipped}
-            frontChildren={
-              <FontAwesomeIcon icon={faHome} size="7x" className="text-white" />
-            }
-            backChildren={
-              <div className="column justify-center">
-                {gameData?.dailyParameters?.letters
-                  ?.filter((letter) => letter !== null)
-                  ?.map((letter, index) => {
-                    return (
-                      <div className="row justify-center py-1" key={index}>
-                        <div className="tile border-2 border-red-500 cursor-default">
-                          {letter?.toUpperCase()}
-                        </div>
-                        <div className="row text-center text-md pl-2 self-center">
-                          <span>in</span>
-                          <span className="text-rose-500 font-bold pl-1">
-                            Position
-                          </span>
-                          <span className="text-rose-500 font-bold pl-1">
-                            {+gameData?.dailyParameters?.letters?.indexOf(
-                              letter
-                            ) + +1}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            }
+    <div className="main-input">
+      <CardFlip
+        flipped={inputFlipped}
+        frontChildren={
+          <Parameters
+            focusPos={focusPos}
+            setAllFocus={setAllFocus}
+            letters={gameData?.dailyParameters?.letters}
+            wordLengthFlipped={wordLengthFlipped}
+            numTilesFlipped={numTilesFlipped}
+            revealedParametersFlipped={revealedParametersFlipped}
           />
-        </div>
-      </div>
-
-      <div
-        className="card-flip h-32"
-        onClick={(e) => {
-          setAllFocus(focusPos);
-        }}
-      >
-        <CardFlip
-          flipped={inputFlipped}
-          frontChildren={<div className="row" />}
-          backChildren={
-            <form onSubmit={handleSubmit(onSubmit)} className="column">
-              <div className="row self-center">
-                {fields.map((item, index) => {
-                  return (
-                    <div className="px-0.5" key={item.id}>
-                      <Input
-                        register={register}
-                        control={control}
-                        index={index}
-                        name={`letterInputs.${index}.letter`}
-                        className={classnames(
-                          item.letter !== null
-                            ? "border-2 border-red-500 cursor-default"
-                            : "",
-                          "tile outline-2 outline-green-500 shadow-green-700 caret-transparent"
-                        )}
-                        readOnly={item.letter !== null ? true : false}
-                        onKeyDown={(e) => {
-                          if (e.keyCode === 13) {
-                            // Don't prevent default
-                          } else {
-                            if (e.keyCode === 8) {
-                              // Delete
-                              e.preventDefault();
-
-                              const prevIndex =
-                                gameData?.dailyParameters?.letters
-                                  ?.slice(0, index)
-                                  ?.lastIndexOf(null);
-
-                              const lastIndex =
-                                gameData?.dailyParameters?.letters?.lastIndexOf(
-                                  null
-                                );
-
-                              if (
-                                (index === lastIndex || prevIndex === -1) &&
-                                getValues(`letterInputs.${index}.letter`) !==
-                                  null &&
-                                getValues(`letterInputs.${index}.letter`) !== ""
-                              ) {
-                                setValue(`letterInputs.${index}.letter`, null);
-                              } else {
-                                if (prevIndex > -1) {
-                                  setValue(
-                                    `letterInputs.${prevIndex}.letter`,
-                                    null
-                                  );
-                                  setAllFocus(prevIndex);
-                                }
-                              }
-                            } else if (
-                              (e.keyCode >= 65 && e.keyCode <= 90) ||
-                              (e.keyCode >= 97 && e.keyCode <= 122)
-                            ) {
-                              // Alphabet Upper or Lower Case
-                              e.preventDefault();
-
-                              setValue(
-                                `letterInputs.${index}.letter`,
-                                e.key.toUpperCase()
-                              );
-                              if (
-                                index + 1 <
-                                gameData?.dailyParameters?.letters?.length
-                              ) {
-                                const nextIndex =
-                                  gameData?.dailyParameters?.letters?.indexOf(
-                                    null,
-                                    index + 1
-                                  );
-                                if (nextIndex > -1) {
-                                  setAllFocus(nextIndex);
-                                }
-                              }
-                            }
-                          }
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-              <button type="submit" className="btn-blue self-center mt-2">
-                Enter
-              </button>
-              <div className="row justify-center pt-2 text-red-600 font-bold text-xs">
-                {isInvalidWordText}
-              </div>
-            </form>
-          }
-        />
-      </div>
+        }
+        backChildren={
+          <WordInput
+            focusPos={focusPos}
+            setAllFocus={setAllFocus}
+            inputFlipped={inputFlipped}
+            submit={handleSubmit(onSubmit)}
+            fields={fields}
+            register={register}
+            control={control}
+            letters={gameData?.dailyParameters?.letters}
+            getValues={getValues}
+            setValue={setValue}
+            isInvalidWordText={isInvalidWordText}
+          />
+        }
+      />
 
       <CorrectWords
         correctWords={gameData?.correctWords}
