@@ -33,7 +33,6 @@ const Input = ({
 const WordInput = ({
   focusPos,
   setAllFocus,
-  inputFlipped,
   submit,
   fields,
   register,

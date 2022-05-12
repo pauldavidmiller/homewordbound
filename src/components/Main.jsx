@@ -156,20 +156,23 @@ const Main = () => {
       <CardFlip
         flipped={inputFlipped}
         frontChildren={
-          <Parameters
-            focusPos={focusPos}
-            setAllFocus={setAllFocus}
-            letters={gameData?.dailyParameters?.letters}
-            wordLengthFlipped={wordLengthFlipped}
-            numTilesFlipped={numTilesFlipped}
-            revealedParametersFlipped={revealedParametersFlipped}
-          />
+          !inputFlipped ? (
+            <Parameters
+              focusPos={focusPos}
+              setAllFocus={setAllFocus}
+              letters={gameData?.dailyParameters?.letters}
+              wordLengthFlipped={wordLengthFlipped}
+              numTilesFlipped={numTilesFlipped}
+              revealedParametersFlipped={revealedParametersFlipped}
+            />
+          ) : (
+            <div />
+          )
         }
         backChildren={
           <WordInput
             focusPos={focusPos}
             setAllFocus={setAllFocus}
-            inputFlipped={inputFlipped}
             submit={handleSubmit(onSubmit)}
             fields={fields}
             register={register}
