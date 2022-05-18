@@ -50,11 +50,13 @@ const Parameters = ({
         <CardFlip
           flipped={revealedParametersFlipped}
           frontChildren={
-            <FontAwesomeIcon
-              icon={faHome}
-              size="4x"
-              className="text-white pl-5"
-            />
+            <div className="pl-1">
+              <FontAwesomeIcon
+                icon={faHome}
+                size="4x"
+                className="text-white pl-5"
+              />
+            </div>
           }
           backChildren={
             <div className="column justify-center w-max pl-1 gap-1">
