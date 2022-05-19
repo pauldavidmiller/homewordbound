@@ -153,18 +153,22 @@ const Main = () => {
 
   return (
     <div className="main-input">
-      <Parameters
-        focusPos={focusPos}
-        setAllFocus={setAllFocus}
-        letters={gameData?.dailyParameters?.letters}
-        wordLengthFlipped={wordLengthFlipped}
-        numTilesFlipped={numTilesFlipped}
-        revealedParametersFlipped={revealedParametersFlipped}
-      />
-
       <CardFlip
         flipped={inputFlipped}
-        frontChildren={<div className="parameters h-32" />}
+        frontChildren={
+          !inputFlipped ? (
+            <Parameters
+              focusPos={focusPos}
+              setAllFocus={setAllFocus}
+              letters={gameData?.dailyParameters?.letters}
+              wordLengthFlipped={wordLengthFlipped}
+              numTilesFlipped={numTilesFlipped}
+              revealedParametersFlipped={revealedParametersFlipped}
+            />
+          ) : (
+            <div />
+          )
+        }
         backChildren={
           <WordInput
             focusPos={focusPos}

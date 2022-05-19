@@ -40,20 +40,24 @@ const Parameters = ({
         </ParameterSelector>
       </div>
 
-      <FontAwesomeIcon
-        icon={faLongArrowAltRight}
-        size="3x"
-        className="-pl-0.5 pr-2 self-center text-blue-400"
-      />
+      <div className="-ml-0.5 mr-2 self-center">
+        <FontAwesomeIcon
+          icon={faLongArrowAltRight}
+          size="3x"
+          className="text-blue-400"
+        />
+      </div>
 
-      <div className="column justify-center whitespace-nowrap">
+      <div className="column whitespace-nowrap self-center">
         <CardFlip
           flipped={revealedParametersFlipped}
           frontChildren={
-            <FontAwesomeIcon icon={faHome} size="3x" className="text-white" />
+            <div className="p-1">
+              <FontAwesomeIcon icon={faHome} size="3x" className="text-white" />
+            </div>
           }
           backChildren={
-            <div className="column justify-center gap-1">
+            <div className="column gap-1">
               {letters
                 ?.filter((letter) => letter !== null)
                 ?.map((letter, index) => {
